@@ -1,0 +1,87 @@
+<!-- templates/registration/login.html -->
+{% extends "base.html" %}
+{% load static %} {# Make sure static is loaded #}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<div class="login-page-wrapper"> {# Main container for the two columns #}
+
+    {# Column 1: Image/Illustration Area #}
+    <div class="login-visual-side">
+        {# Option 1: Background Image via CSS (preferred for flexibility) #}
+        {# Leave this div empty, style with CSS background-image #}
+
+        {# Option 2: Direct Image Tag #}
+        {# <img src="{% static 'novels/images/your-login-image.jpg' %}" alt="Login visual"> #}
+
+        {# You could also add text overlays here if needed #}
+        {# <h2>Turn your ideas into reality.</h2> #}
+    </div>
+
+    {# Column 2: Form Area #}
+    <div class="login-form-side">
+        <div class="auth-form-container"> {# Keep the inner container for padding/centering form elements #}
+            {# Use your existing logo or site icon here if you have one #}
+            {# <div class="form-logo">[Your Logo]</div> #}
+
+            <h2>Welcome Back!</h2> {# Or "Login to your Account" #}
+            <p class="form-subtitle">Please enter your details to sign in.</p> {# Optional subtitle #}
+
+            {% if form.non_field_errors %}
+                <div class="form-errors">
+                    {% for error in form.non_field_errors %} <p>{{ error }}</p> {% endfor %}
+                </div>
+            {% endif %}
+             {% if form.errors and not form.non_field_errors %}
+                 <p class="form-errors">Your username and password didn't match. Please try again.</p>
+            {% endif %}
+
+            <form method="post" action="{% url 'login' %}" class="auth-form">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Username</label> {# Simplified label #}
+                    {{ form.username }}
+                    {% comment %} Display field errors if needed {% endcomment %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Password</label>
+                    {{ form.password }}
+                     {% comment %} Display field errors if needed {% endcomment %}
+                </div>
+
+                {# Optional Elements like 'Remember Me' and 'Forgot Password' #}
+                <div class="form-options">
+                    {# Django's default auth form doesn't have remember me easily #}
+                    {# <label class="remember-me"><input type="checkbox" name="remember"> Remember me</label> #}
+                    <a href="{% url 'password_reset' %}" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="button button-primary button-fullwidth">Sign In</button> {# Make button full width? #}
+
+                {# Optional: Social Login (Requires additional libraries like django-allauth) #}
+                {# <div class="social-login"> #}
+                {#    <p>Or sign in with</p> #}
+                {#    <button class="button button-google"><img src="{% static 'path/to/google-icon.svg' %}" alt="Google"> Sign in with Google</button> #}
+                {# </div> #}
+
+                {# Link to Sign Up Page #}
+                <p class="form-links">
+                    Don't have an account? <a href="{% url 'signup' %}">Sign up!</a> {# Link to your future signup URL #}
+                </p>
+            </form>
+        </div>
+    </div>
+
+</div> {# End login-page-wrapper #}
+{% endblock content %}
+
+{% block extra_head %} {# Add specific styles or hide base elements if needed #}
+<style>
+    /* Optional: Hide default header/footer ONLY on login page if desired */
+    /* .site-header, .site-footer { display: none; } */
+    /* Or give the body a specific class/ID for the login page */
+</style>
+{% endblock extra_head %}

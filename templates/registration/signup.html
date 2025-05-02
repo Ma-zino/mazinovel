@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock title %}
+
+{% block content %}
+<div class="login-page-wrapper">
+
+    <div class="login-visual-side">
+        {# Background image applied via CSS #}
+    </div>
+
+    <div class="login-form-side modern-form">
+        <div class="auth-form-container">
+            <h2>Create an account</h2>
+
+            <div class="social-login-placeholder">
+                <button type="button" class="button button-google-placeholder">
+                    Create account with Google
+                </button>
+                <div class="separator">
+                    <span>Or</span>
+                </div>
+            </div>
+
+            <form method="post" class="auth-form">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="form-errors">{% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+
+                {# === FIELD RENDERING CORRECTIONS === #}
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}" class="sr-only">Username</label>
+                    {{ form.username }} {# RENDER THE WIDGET DIRECTLY #}
+                    {% if form.username.errors %}<div class="field-errors">{% for error in form.username.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.first_name.id_for_label }}" class="sr-only">First Name</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}<div class="field-errors">{% for error in form.first_name.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.last_name.id_for_label }}" class="sr-only">Last Name</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}<div class="field-errors">{% for error in form.last_name.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}" class="sr-only">Email Address</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}<div class="field-errors">{% for error in form.email.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password1.id_for_label }}" class="sr-only">Password</label>
+                    {{ form.password1 }} {# RENDER THE WIDGET DIRECTLY #}
+                    {% if form.password1.errors %}<div class="field-errors">{% for error in form.password1.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}
+                    {# === DELETE THIS HELP TEXT BLOCK === #}
+                    {# {% if form.password1.help_text %} #}
+                    {#    <small class="form-text text-muted help-text-inline">{{ form.password1.help_text|safe }}</small> #}
+                    {# {% endif %} #}
+                    {# === END DELETED BLOCK === #}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password2.id_for_label }}" class="sr-only">Confirm Password</label>
+                    {{ form.password2 }} {# RENDER THE WIDGET DIRECTLY #}
+                    {% if form.password2.errors %}<div class="field-errors">{% for error in form.password2.errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}
+                </div>
+                {# === END FIELD RENDERING CORRECTIONS === #}
+
+
+                <button type="submit" class="button button-primary button-fullwidth button-signup">Create an account</button>
+
+                <p class="form-links">
+                    Already have an account? <a href="{% url 'login' %}">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+
+{% block extra_head %}
+{# Optional extra head content #}
+{% endblock extra_head %}

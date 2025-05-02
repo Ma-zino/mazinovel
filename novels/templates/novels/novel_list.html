@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - Awesome Novel Portal{% endblock title %}
+
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'novels/css/novel_list.css' %}">
+{% endblock extra_head %}
+
+
+{% block content %}
+
+    {# --- START: Top Feature Section (Stays First) --- #}
+    <section class="top-feature-section">
+        <div class="feature-grid">
+
+            {# Column 1: Featured Book Banner #}
+            <div class="featured-book-banner">
+                {% if featured_novel %}
+                <a href="{% url 'novels:novel_detail' slug=featured_novel.slug %}" class="featured-link-wrapper">
+                    <div class="banner-background" {% if featured_novel.cover_image %} style="background-image: url('{{ featured_novel.cover_image.url }}');"{% endif %}>
+                        <div class="banner-overlay"></div>
+                    </div>
+                    <div class="banner-content">
+                        {% if featured_novel.cover_image %}
+                        <div class="banner-cover-img">
+                            <img src="{{ featured_novel.cover_image.url }}" alt="Cover for {{ featured_novel.title }}">
+                        </div>
+                        {% endif %}
+                        <div class="banner-text">
+                            <h2 class="banner-title">{{ featured_novel.title }}</h2>
+                            <p class="banner-synopsis">{{ featured_novel.synopsis|linebreaksbr|truncatewords_html:40 }}</p>
+                            <span class="banner-author">by {{ featured_novel.author.username }}</span>
+                        </div>
+                    </div>
+                </a>
+                {% else %}
+                    <div class="placeholder-banner"> {# Added a placeholder div for better styling #}
+                        <p>Check back soon for our featured novel!</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            {# Column 2: Meet Webnovel / Promo Area #}
+            <aside class="meet-portal-area">
+                <h3 class="aside-title">Meet Awesome Novel Portal</h3>
+                <ul class="promo-list">
+                    {# === Make sure these images exist in novels/static/novels/images/ === #}
+                    <li class="promo-item">
+                        <a href="#">
+                            <img src="{% static 'novels/images/promo1.png' %}" alt="Promo 1">
+                            <div class="promo-text">
+                                <h4>Portal Spirit Awards 2025</h4>
+                                <p>Become an author and win rewards!</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="promo-item">
+                         <a href="#">
+                            <img src="{% static 'novels/images/promo2.png' %}" alt="Promo 2">
+                            <div class="promo-text">
+                                <h4>Author Benefits</h4>
+                                <p>Why you should start your writing journey here.</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="promo-item">
+                         <a href="#">
+                            <img src="{% static 'novels/images/promo3.png' %}" alt="Promo 3">
+                            <div class="promo-text">
+                                <h4>More Novels and Bonuses!</h4>
+                                <p>Download the App to get coins, points, and more!</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+
+        </div> {# End feature-grid #}
+    </section>
+    {# --- END: Top Feature Section --- #}
+
+
+    {# --- Section: Popular Novels (Moved UP to be Second) --- #}
+    <section class="novel-section">
+        <h2 class="section-title">Popular Novels</h2> {# Section Heading #}
+        {% if popular_novels %}
+            <ul class="novel-list"> {# Reuse the same list class #}
+                {% for novel in popular_novels %}
+                <li class="novel-item"> {# Reuse the same item class #}
+                    <div class="novel-cover">
+                        <a href="{% url 'novels:novel_detail' slug=novel.slug %}" aria-label="Read {{ novel.title }}">
+                            {% if novel.cover_image %}
+                                <img src="{{ novel.cover_image.url }}" alt="Cover for {{ novel.title }}">
+                            {% else %}
+                                <img src="{% static 'novels/images/placeholder.png' %}" alt="Placeholder"> {# Ensure path is correct #}
+                            {% endif %}
+                             <span class="status-badge status-{{ novel.status|slugify }}">{{ novel.get_status_display }}</span>
+                        </a>
+                    </div>
+                    <div class="novel-info">
+                        <h3>
+                            <a href="{% url 'novels:novel_detail' slug=novel.slug %}">{{ novel.title }}</a>
+                        </h3>
+                        <div class="novel-meta-detailed">
+                             <div class="meta-item author-meta">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
+                                <span>{{ novel.author.username }}</span>
+                             </div>
+                             <div class="meta-item chapter-meta">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path></svg>
+                                <span>Latest Ch. XX</span> {# Placeholder text #}
+                             </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No popular novels to display currently.</p>
+        {% endif %}
+    </section>
+
+
+    {# --- Section: Latest Chapter Updates (GRID + PAGINATION) --- #}
+    <section class="novel-section latest-chapters-section">
+        <h2 class="section-title">Latest Updates</h2>
+
+        {% if latest_updates_page_obj %} {# Check if the page object exists #}
+            {# Use a div for the grid container #}
+            <div class="chapter-update-grid">
+                {# Loop through the items ON THE CURRENT PAGE #}
+                {% for update_info in latest_updates_page_obj %}
+                    <div class="chapter-update-grid-item"> {# Grid item element #}
+                        <div class="update-cover">
+                            <a href="{% url 'novels:novel_detail' slug=update_info.novel.slug %}" aria-label="{{ update_info.novel.title }}">
+                                {% if update_info.novel.cover_image %}
+                                    <img src="{{ update_info.novel.cover_image.url }}" alt="Cover for {{ update_info.novel.title }}">
+                                {% else %}
+                                    <img src="{% static 'novels/images/placeholder.png' %}" alt="Placeholder">
+                                {% endif %}
+                                <span class="status-badge mini-badge status-{{ update_info.novel.status|slugify }}">{{ update_info.novel.get_status_display }}</span>
+                            </a>
+                        </div>
+                        <div class="update-info">
+                            <h4 class="update-novel-title">
+                                <a href="{% url 'novels:novel_detail' slug=update_info.novel.slug %}">{{ update_info.novel.title }}</a>
+                            </h4>
+                            <ol class="chapter-links">
+                                {% for chapter in update_info.chapters %}
+                                <li>
+                                    <a href="{% url 'novels:chapter_detail' novel_slug=update_info.novel.slug chapter_number=chapter.chapter_number %}">
+                                        <span class="chapter-number">Ch. {{ chapter.chapter_number }}</span>
+                                        {# Optionally display chapter title #}
+                                        {# <span class="chapter-title-update">{{ chapter.title|truncatechars:25 }}</span> #}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                                {% if not update_info.chapters %}
+                                <li class="no-chapters">No recent chapters found.</li>
+                                {% endif %}
+                            </ol>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div> {# End chapter-update-grid #}
+
+            {# --- START: Pagination Controls --- #}
+            {% if latest_updates_page_obj.has_other_pages %}
+              <nav aria-label="Latest Updates Page Navigation" class="pagination-nav">
+                <ul class="pagination">
+
+                  {# Previous Button #}
+                  {% if latest_updates_page_obj.has_previous %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ latest_updates_page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">«</span> Prev
+                      </a>
+                    </li>
+                  {% else %}
+                    <li class="page-item disabled">
+                      <span class="page-link" aria-hidden="true">« Prev</span>
+                    </li>
+                  {% endif %}
+
+                  {# Page Numbers #}
+                  {% for i in latest_updates_page_obj.paginator.page_range %}
+                    {% if latest_updates_page_obj.number == i %}
+                      {# Current page #}
+                      <li class="page-item active" aria-current="page"><span class="page-link">{{ i }}</span></li>
+                    {% elif i > latest_updates_page_obj.number|add:'-3' and i < latest_updates_page_obj.number|add:'3' %}
+                       {# Nearby pages #}
+                      <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                     {% elif i == 1 or i == latest_updates_page_obj.paginator.num_pages %} {# First/Last #}
+                          {# Add ellipsis if needed #}
+                         {% if i == 1 and latest_updates_page_obj.number > 4 %}<li class="page-item disabled"><span class="page-link">...</span></li>{% endif %}
+                         <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                         {% if i == latest_updates_page_obj.paginator.num_pages and latest_updates_page_obj.number < latest_updates_page_obj.paginator.num_pages|add:'-3' %} <li class="page-item disabled"><span class="page-link">...</span></li>{% endif %}
+                    {% endif %}
+                  {% endfor %}
+
+                  {# Next Button #}
+                  {% if latest_updates_page_obj.has_next %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ latest_updates_page_obj.next_page_number }}" aria-label="Next">
+                        Next <span aria-hidden="true">»</span>
+                      </a>
+                    </li>
+                  {% else %}
+                    <li class="page-item disabled">
+                      <span class="page-link" aria-hidden="true">Next »</span>
+                    </li>
+                  {% endif %}
+
+                </ul>
+              </nav>
+            {% endif %}
+            {# --- END: Pagination Controls --- #}
+
+        {% else %}
+            <p>No recent chapter updates.</p> {# Fallback message #}
+        {% endif %}
+    </section>
+    {# --- END Section: Latest Chapter Updates --- #}
+
+
+
+    {# --- Section: Newly Added (Last Section) --- #}
+    <section class="novel-section">
+        <h2 class="section-title">Newly Added</h2> {# Section Heading #}
+         {% if newly_added %}
+            <ul class="novel-list"> {# Reuse the same list class for styling #}
+                {% for novel in newly_added %}
+                <li class="novel-item">
+                    <div class="novel-cover">
+                        <a href="{% url 'novels:novel_detail' slug=novel.slug %}" aria-label="Read {{ novel.title }}">
+                            {% if novel.cover_image %}
+                                <img src="{{ novel.cover_image.url }}" alt="Cover for {{ novel.title }}">
+                            {% else %}
+                                <img src="{% static 'novels/images/placeholder.png' %}" alt="Placeholder"> {# Ensure path is correct #}
+                            {% endif %}
+                             <span class="status-badge status-{{ novel.status|slugify }}">{{ novel.get_status_display }}</span>
+                        </a>
+                    </div>
+                    <div class="novel-info">
+                        <h3>
+                            <a href="{% url 'novels:novel_detail' slug=novel.slug %}">{{ novel.title }}</a>
+                        </h3>
+                        <div class="novel-meta-detailed">
+                             <div class="meta-item author-meta">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
+                                <span>{{ novel.author.username }}</span>
+                             </div>
+                             <div class="meta-item chapter-meta">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path></svg>
+                                <span>Latest Ch. XX</span> {# Placeholder text #}
+                             </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No novels recently added.</p>
+        {% endif %}
+    </section>
+    
+
+    {# --- Section: Top Completed Novels (NEW SECTION) --- #}
+    <section class="novel-section">
+        <h2 class="section-title">Top Completed Novels</h2> {# Section Heading #}
+        {% if completed_novels %}
+            <ul class="novel-list"> {# Reuse the same list class #}
+                {% for novel in completed_novels %} {# Loop through completed_novels #}
+                <li class="novel-item"> {# Reuse the same item class #}
+                    <div class="novel-cover">
+                        <a href="{% url 'novels:novel_detail' slug=novel.slug %}" aria-label="Read {{ novel.title }}">
+                            {% if novel.cover_image %}
+                                <img src="{{ novel.cover_image.url }}" alt="Cover for {{ novel.title }}">
+                            {% else %}
+                                <img src="{% static 'novels/images/placeholder.png' %}" alt="Placeholder">
+                            {% endif %}
+                            {# Show 'Completed' status specifically or keep the generic badge #}
+                            <span class="status-badge status-{{ novel.status|slugify }}">{{ novel.get_status_display }}</span>
+                        </a>
+                    </div>
+                    <div class="novel-info">
+                        <h3>
+                            <a href="{% url 'novels:novel_detail' slug=novel.slug %}">{{ novel.title }}</a>
+                        </h3>
+                        <div class="novel-meta-detailed">
+                            <div class="meta-item author-meta">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
+                                <span>{{ novel.author.username }}</span>
+                            </div>
+                            <div class="meta-item chapter-meta">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path></svg>
+                                {# Maybe show total chapters instead of 'Latest'? Need total chapter count on model. #}
+                                <span>XX Chapters</span> {# Placeholder text #}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No completed novels found.</p> {# Fallback message #}
+        {% endif %}
+    </section>
+
+
+{% endblock content %}

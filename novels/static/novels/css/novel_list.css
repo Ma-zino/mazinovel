@@ -1,0 +1,160 @@
+/* mazinovel/novels/static/novels/css/novel_list.css */
+/* Styles for Header and Homepage Specific Elements */
+
+
+/* ==========================================================================
+   3. Homepage Styles (Sections, Novel List, Feature Area, Latest Chapters)
+   ========================================================================== */
+
+/* --- Homepage Sections --- */
+.novel-section { margin-bottom: 3em; }
+.section-title { font-size: 1.6rem; color: var(--text-dark-primary); margin-bottom: 1.2em; padding-bottom: 0.5em; border-bottom: 1px solid var(--border-light); display: block; }
+
+/* --- Novel List & Cards (Used for Popular, Newly Added, Completed) --- */
+.novel-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1.8em 1.5em; }
+.novel-item { background-color: var(--white); border: 1px solid var(--border-light); border-radius: var(--border-radius-base); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.novel-item:hover { transform: translateY(-4px); box-shadow: 0 6px 12px rgba(0,0,0,0.08); }
+.novel-cover { line-height: 0; position: relative; }
+.novel-cover a { display: block; }
+.novel-cover img { width: 100%; height: 260px; object-fit: cover; display: block; background-color: var(--bg-light-secondary); }
+.status-badge { position: absolute; bottom: 8px; left: 8px; background-color: rgba(0, 0, 0, 0.7); color: var(--white); padding: 4px 8px; font-size: 0.7rem; font-weight: 500; border-radius: 3px; line-height: 1; z-index: 1; }
+.status-badge.status-completed { background-color: #198754; }
+.status-badge.status-on-hold { background-color: #ffc107; color: #333; }
+.status-badge.status-dropped { background-color: #dc3545; }
+.novel-info { padding: 0.8em; flex-grow: 1; display: flex; flex-direction: column; background-color: var(--white); }
+.novel-info h3 {
+    margin-top: 0; margin-bottom: 0.4em; font-size: 1rem; line-height: 1.3; font-weight: 500;
+    display: -webkit-box; -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Apply vendor prefix */
+    line-clamp: 2;         /* Apply standard property */
+    overflow: hidden; text-overflow: ellipsis; height: 2.6em; color: var(--text-dark-primary);
+}
+.novel-info h3 a { color: inherit; text-decoration: none;}
+.novel-info h3 a:hover { color: var(--link-primary-hover); }
+.novel-meta-detailed { margin-top: auto; padding-top: 0.5em; font-size: 0.75rem; color: var(--text-dark-secondary); display: flex; flex-wrap: wrap; gap: 0.6em 0.8em; border-top: 1px solid var(--border-light); }
+.meta-item { display: flex; align-items: center; gap: 0.3em; }
+.meta-item svg { width: 12px; height: 12px; opacity: 0.8; flex-shrink: 0; }
+.meta-item span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.author-meta a { color: inherit; text-decoration: none; }
+.author-meta a:hover { color: var(--text-dark-primary); text-decoration: underline;}
+.novel-info p { display: none; } /* Hide synopsis on cards */
+
+/* --- Top Feature Area (Homepage) --- */
+.top-feature-section { margin-bottom: 3em; }
+.feature-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2em; }
+.featured-book-banner { background-color: var(--bg-light-secondary); border-radius: var(--border-radius-lg); overflow: hidden; position: relative; min-height: 280px; display: flex; border: 1px solid var(--border-light);}
+.featured-link-wrapper { display: block; color: inherit; text-decoration: none; width: 100%; height: 100%; }
+.featured-link-wrapper:hover { color: inherit; }
+.banner-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center center; filter: blur(5px) brightness(0.7); transform: scale(1.1); z-index: 1; }
+.banner-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.2) 100%); z-index: 2; }
+.placeholder-banner { padding: 2em; text-align: center; color: var(--text-dark-secondary); display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;}
+.banner-content { position: relative; z-index: 3; padding: 2em; display: flex; align-items: center; gap: 1.5em; width: 100%; color: var(--white); }
+.banner-cover-img { flex-shrink: 0; width: 130px; height: auto; }
+.banner-cover-img img { border-radius: var(--border-radius-base); box-shadow: 0 4px 15px rgba(0,0,0,0.4); display: block; width: 100%; height: auto; }
+.banner-text { flex-grow: 1; }
+.banner-title { color: var(--white); margin-top: 0; margin-bottom: 0.5em; font-size: 1.8rem; font-weight: 700; line-height: 1.2; }
+.banner-synopsis { color: #e0e0e0; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1em; max-height: 6.5em; overflow: hidden; }
+.banner-author { font-size: 0.85rem; color: #bdbdbd; display: block; font-weight: 500; }
+.banner-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); z-index: 4; }
+
+.meet-portal-area { background-color: var(--white); border-radius: var(--border-radius-lg); padding: 1.5em; border: 1px solid var(--border-light); box-shadow: 0 1px 3px rgba(0,0,0,0.04);}
+.aside-title { font-size: 1.3rem; margin-top: 0; margin-bottom: 1.2em; padding-bottom: 0.6em; border-bottom: 1px solid var(--border-light); color: var(--text-dark-primary); }
+.promo-list { list-style: none; padding: 0; margin: 0; }
+.promo-item { margin-bottom: 1em; }
+.promo-item:last-child { margin-bottom: 0; }
+.promo-item a { display: flex; align-items: center; gap: 1em; text-decoration: none; color: inherit; transition: background-color 0.2s ease; padding: 0.5em; border-radius: var(--border-radius-base); }
+.promo-item a:hover { background-color: var(--bg-light-secondary); }
+.promo-item img { width: 60px; height: auto; flex-shrink: 0; border-radius: 3px; }
+.promo-text h4 { font-size: 1rem; margin-top: 0; margin-bottom: 0.2em; color: var(--text-dark-primary); }
+.promo-text p { font-size: 0.85rem; margin-bottom: 0; line-height: 1.4; color: var(--text-dark-secondary); }
+
+
+/* --- START: Latest Chapter Update Section Styles (NEW Grid Layout) --- */
+.latest-chapters-section { margin-bottom: 3em; }
+.chapter-update-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5em; }
+.chapter-update-grid-item { display: flex; flex-direction: row; gap: 1em; background-color: var(--bg-light-secondary); padding: 0.8em; border: 1px solid var(--border-light); border-radius: var(--border-radius-base); align-items: flex-start; transition: background-color 0.2s ease, box-shadow 0.2s ease; }
+.chapter-update-grid-item:hover { background-color: #e9ecef; box-shadow: 0 2px 5px rgba(0,0,0,0.07); }
+.update-cover { flex-shrink: 0; width: 50px; }
+.update-cover a { display: block; position: relative; }
+.update-cover img { width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-radius: 3px; }
+.update-cover .status-badge.mini-badge { position: absolute; top: 2px; right: 2px; font-size: 0.55rem; padding: 1px 3px; border-radius: 2px; background-color: rgba(0, 0, 0, 0.7); color: #fff; line-height: 1.1;}
+.update-info { display: flex; flex-direction: column; justify-content: flex-start; min-width: 0; overflow: hidden; max-height: 75px;}
+.update-novel-title { font-size: 0.95rem; font-weight: 600; color: var(--text-dark-primary); margin: 0 0 0.3em 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; flex-shrink: 0;}
+.update-novel-title a { color: inherit; text-decoration: none; }
+.update-novel-title a:hover { color: var(--link-primary-hover); text-decoration: none; }
+.chapter-links { list-style: none; padding: 0; margin: 0; overflow: hidden; }
+.chapter-links li { margin-bottom: 0.2em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chapter-links li:last-child { margin-bottom: 0; }
+.chapter-links li a { font-size: 0.85rem; color: var(--text-dark-secondary); text-decoration: none; transition: color 0.2s ease; display: block; }
+.chapter-links li a:hover { color: var(--text-dark-primary); }
+.chapter-links .chapter-number { font-weight: 500; color: #777; margin-right: 0.5em; }
+.chapter-links .no-chapters { font-size: 0.8rem; color: #999; font-style: italic; }
+/* --- END: Latest Chapter Update Section Styles --- */
+
+
+/* --- START: Pagination Styles --- */
+.pagination-nav { margin-top: 2.5em; display: flex; justify-content: center; }
+.pagination { display: flex; padding-left: 0; list-style: none; border-radius: var(--border-radius-base); gap: 5px; }
+.page-item {}
+.page-item .page-link { position: relative; display: block; padding: 0.6em 1em; margin-left: -1px; line-height: 1.25; color: var(--link-primary); background-color: var(--white); border: 1px solid var(--border-light); text-decoration: none; transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out; border-radius: var(--border-radius-base); font-size: 0.9rem; }
+.page-item:first-child .page-link { margin-left: 0; }
+.page-item .page-link:hover { z-index: 2; color: var(--link-primary-hover); text-decoration: none; background-color: var(--bg-light-secondary); border-color: #ccc; }
+.page-item.active .page-link { z-index: 3; color: var(--cta-button-text); background-color: var(--cta-button-bg); border-color: var(--cta-button-bg); }
+.page-item.disabled .page-link { color: #6c757d; pointer-events: none; cursor: auto; background-color: var(--white); border-color: var(--border-light); opacity: 0.7; }
+/* --- END: Pagination Styles --- */
+
+
+/* --- Homepage Responsive --- */
+@media (max-width: 1024px) {
+    .site-header.skiff-style-header .header-center { display: none; }
+    .site-header.skiff-style-header .container { gap: 1em; }
+    .site-header.skiff-style-header .header-group { gap: 1em; }
+}
+@media (max-width: 992px) {
+    .novel-list { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+    .chapter-update-grid { grid-template-columns: repeat(3, 1fr); } /* Chapter grid */
+    .feature-grid { grid-template-columns: 1.5fr 1fr; gap: 1.5em;} /* Adjust feature grid */
+}
+@media (max-width: 768px) {
+    /* Header Responsive */
+    .site-header.skiff-style-header .container { justify-content: space-between; gap: 1em; }
+    .site-header.skiff-style-header .main-nav { display: none; }
+    .site-header.skiff-style-header .user-actions { display: none; }
+    /* Keep Logo and CTA */
+    /* Novel List */
+    .novel-list { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    /* Chapter grid */
+    .chapter-update-grid { grid-template-columns: repeat(2, 1fr); }
+    .page-item .page-link { padding: 0.5em 0.8em; font-size: 0.85rem; } /* Pagination */
+    /* Feature grid */
+     .feature-grid { grid-template-columns: 1fr; } /* Stack columns */
+     .meet-portal-area { padding: 1em; }
+     .aside-title { font-size: 1.2rem; }
+     .promo-item a { gap: 0.8em; }
+     .promo-item img { width: 50px; }
+     .promo-text h4 { font-size: 0.95rem;}
+     .promo-text p { font-size: 0.8rem;}
+     .banner-content { padding: 1.5em; }
+     .banner-cover-img { width: 100px; }
+     .banner-title { font-size: 1.5rem; }
+     .banner-synopsis { font-size: 0.9rem; max-height: 5.5em; }
+
+}
+@media (max-width: 480px) {
+    /* Header */
+    .site-header.skiff-style-header .logo a { font-size: 1.3rem; }
+    .site-header.skiff-style-header .cta-buttons .button { font-size: 0.85rem; padding: 0.5em 1em;}
+    /* Novel List */
+     .novel-list { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 1em; }
+     .novel-cover img { height: 200px; }
+     .novel-info h3 { font-size: 0.9rem; height: 2.6em;}
+     /* Chapter Grid */
+     .chapter-update-grid { grid-template-columns: 1fr; }
+     /* Feature Area */
+     .banner-content { flex-direction: column; text-align: center; gap: 1em;}
+     .banner-cover-img { width: 80px; margin: 0 auto;}
+     .banner-text { text-align: center;}
+     .banner-title { font-size: 1.3rem; }
+     .banner-synopsis { display: none; }
+     .banner-author { font-size: 0.8rem;}
+}

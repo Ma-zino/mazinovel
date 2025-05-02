@@ -1,0 +1,62 @@
+/* mazinovel/static/css/auth.css */
+/* Styles for Authentication Pages (Login/Signup) */
+
+/* ==========================================================================
+   5. Authentication Pages (Login/Signup)
+   ========================================================================== */
+
+   .login-page-wrapper { display: flex; width: 100%; align-items: stretch; flex-grow: 1; }
+   .login-visual-side { flex: 1; background-color: var(--bg-light-secondary); background-image: none; /* Or set specific image */ display: flex; justify-content: center; align-items: center; }
+   .login-form-side { flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px; background-color: var(--bg-light-primary); }
+   .login-form-side.modern-form .auth-form-container { background-color: var(--white); padding: 40px 50px; border-radius: var(--modern-form-border-radius); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); max-width: 450px; width: 100%; margin: 0; border: 1px solid var(--border-light); }
+   .login-form-side:not(.modern-form) .auth-form-container { background-color: var(--white); border: 1px solid var(--border-light); max-width: 400px; width: 100%; margin: 0; padding: 30px; border-radius: var(--border-radius-base); }
+   .login-form-side h2 { color: var(--text-dark-primary); margin-top: 0; font-size: 1.8em; font-weight: 600; margin-bottom: 15px; text-align: center; }
+   .login-form-side.modern-form h2 { margin-bottom: 25px; }
+   .login-form-side .form-subtitle { color: var(--text-dark-secondary); font-size: 1em; margin-bottom: 25px; text-align: center; }
+   .social-login-placeholder { margin-bottom: 20px; }
+   .button.button-google-placeholder { background-color: var(--white); color: var(--text-dark-secondary); border: 1px solid var(--border-light); width: 100%; padding: 12px; font-weight: 500; border-radius: var(--modern-form-input-radius); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+   .button.button-google-placeholder:hover { background-color: var(--bg-light-secondary); border-color: #ccc; }
+   .separator { color: var(--text-dark-secondary); opacity: 0.7; display: flex; align-items: center; text-align: center; margin: 25px 0; }
+   .separator::before, .separator::after { content: ''; flex: 1; border-bottom: 1px solid var(--border-light); }
+   .separator span { padding: 0 15px; font-size: 0.9em; }
+   .auth-form { width: 100%; }
+   .auth-form .form-group { margin-bottom: 15px; }
+   .auth-form input[type="text"], .auth-form input[type="password"], .auth-form input[type="email"] { color: var(--text-dark-primary); background-color: var(--bg-light-secondary); border: 1px solid var(--border-light); width: 100%; padding: 14px 18px; font-size: 0.95em; border-radius: var(--modern-form-input-radius); box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+   .auth-form input::placeholder { color: #999; }
+   .auth-form input:focus { border-color: var(--link-primary); outline: 0; box-shadow: 0 0 0 0.15rem var(--focus-shadow-color); }
+   .form-errors, .field-errors { color: var(--error-red); font-size: 0.85em; margin-top: 5px; margin-bottom: 10px; text-align: left; }
+   .field-errors p { margin: 2px 0; }
+   .form-errors p { margin: 5px 0; padding: 5px 10px; background-color: var(--error-red-bg-tint); border: 1px solid var(--error-red-border-tint); border-radius: var(--border-radius-base); }
+   .form-options { display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; margin-top: 10px; margin-bottom: 20px; }
+   .form-options .remember-me { color: var(--text-dark-secondary); display: flex; align-items: center; gap: 5px; }
+   .form-options .forgot-password { color: var(--link-primary); text-decoration: none; }
+   .form-options .forgot-password:hover { color: var(--link-primary-hover); text-decoration: underline; }
+   .help-text-inline { color: var(--text-dark-secondary); font-size: 0.8em; display: block; margin-top: 5px;}
+   .button { display: inline-block; padding: 12px 25px; border: 1px solid var(--border-light); border-radius: var(--border-radius-base); font-size: 1em; font-weight: 500; text-align: center; text-decoration: none; cursor: pointer; transition: background-color 0.2s ease, transform 0.1s ease; line-height: normal; background-color: var(--white); color: var(--text-dark-primary);}
+   .button:hover { background-color: var(--bg-light-secondary); border-color: #ccc; }
+   .button-primary { background-color: var(--link-primary); color: var(--white); border: none;}
+   .button-primary:hover { background-color: var(--link-primary-hover); transform: translateY(-1px); border: none;}
+   .auth-form .button { width: 100%; padding: 14px; font-size: 1rem; margin-top: 15px; }
+   .button.button-signup, .button.button-login { background-color: var(--cta-button-bg); color: var(--cta-button-text); border: none; }
+   .button.button-signup:hover, .button.button-login:hover { background-color: var(--cta-button-hover-bg); border: none; transform: none; }
+   .form-links { color: var(--text-dark-secondary); text-align: center; margin-top: 25px; font-size: 0.9em;}
+   .form-links a { color: var(--link-primary); font-weight: 500; text-decoration: none; }
+   .form-links a:hover { color: var(--link-primary-hover); text-decoration: underline; }
+   
+   /* --- Responsive Auth Styles --- */
+   @media (max-width: 992px) {
+       .login-form-side.modern-form .auth-form-container { padding: 30px 30px; }
+   }
+   @media (max-width: 768px) {
+       .login-page-wrapper { flex-direction: column; }
+       .login-visual-side { display: none; }
+       .login-form-side { flex: 1; padding: 30px 15px; align-items: center; }
+       .login-form-side .auth-form-container { max-width: 100%; box-shadow: none; border: none; }
+       .login-form-side.modern-form .auth-form-container { border-radius: 0; padding: 20px; }
+   }
+   @media (max-width: 480px) {
+       .login-form-side h2 { font-size: 1.6em; }
+       .auth-form input[type="text"], .auth-form input[type="password"], .auth-form input[type="email"] { padding: 12px 15px; font-size: 0.9em; }
+       .auth-form .button { padding: 12px; font-size: 1em; }
+       .login-form-side.modern-form .auth-form-container { padding: 25px 20px; }
+   }

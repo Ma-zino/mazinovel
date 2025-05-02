@@ -1,0 +1,36 @@
+/* mazinovel/novels/static/novels/css/chapter_detail.css */
+/* Styles specific to the chapter reading page */
+
+/* --- Chapter Detail Page --- */
+.chapter-header { text-align: center; margin-bottom: 3em; padding-bottom: 1.5em; border-bottom: 1px solid var(--border-light); }
+.chapter-header h2 { font-size: 1.2rem; margin-bottom: 0.1em; font-weight: 400; font-family: var(--font-primary); }
+.chapter-header h2 a { color: var(--text-dark-secondary); text-decoration: none; }
+.chapter-header h2 a:hover { color: var(--text-dark-primary); text-decoration: underline; }
+.chapter-header h3 { color: var(--text-dark-primary); font-size: 2.2rem; margin-top: 0; }
+
+.chapter-content { font-family: var(--font-secondary); font-size: 1.1rem; line-height: 1.8; max-width: var(--reading-max-width); margin: 0 auto 3em auto; color: var(--text-dark-primary); }
+.chapter-content p { margin-bottom: 1.8em; }
+.chapter-content strong { font-weight: bold; color: var(--text-dark-primary); }
+.chapter-content em { font-style: italic; color: #666; }
+.chapter-content blockquote { border-left: 3px solid var(--border-light); margin-left: 0; margin-right: 0; padding-left: 1.5em; color: var(--text-dark-secondary); font-style: italic; font-size: 1.05em; }
+.chapter-content hr { background-color: var(--border-light); margin: 3em auto; width: 60%; height: 1px; border: 0;}
+
+.chapter-navigation { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1em; margin: 3em auto 1em auto; padding: 1.5em 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); max-width: calc(var(--reading-max-width) + 100px); font-family: var(--font-primary); }
+.chapter-navigation a, .chapter-navigation .nav-disabled { border: 1px solid var(--border-light); border-radius: var(--border-radius-base); background-color: var(--white); padding: 0.7em 1.4em; text-decoration: none; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s ease; display: inline-block; text-align: center; min-width: 150px; }
+.chapter-navigation a { color: var(--text-dark-primary); }
+.chapter-navigation a:hover { background-color: var(--bg-light-secondary); color: var(--text-dark-primary); border-color: #ccc; text-decoration: none; }
+.nav-disabled { color: #aaa; background-color: var(--bg-light-secondary); border-color: #ddd; cursor: default; }
+.nav-toc a { background: none; border:none; color: var(--text-dark-secondary); font-weight: 500; text-transform: uppercase; padding: 0.7em 0; min-width: auto; }
+.nav-toc a:hover { background: none; color: var(--text-dark-primary); text-decoration: underline; }
+
+/* --- Responsive Chapter Detail --- */
+@media (max-width: 768px) {
+    .chapter-content { max-width: 95%; font-size: 1rem; }
+    .chapter-navigation { flex-direction: column; gap: 1em; max-width: 95%;}
+    .chapter-navigation a, .chapter-navigation .nav-disabled { width: 100%; }
+    .nav-toc { order: -1; width: auto; padding: 0.5em 0;}
+}
+@media (max-width: 480px) {
+    .chapter-header h3 { font-size: 1.8rem; }
+    .chapter-navigation a, .chapter-navigation .nav-disabled { font-size: 0.8rem; padding: 0.6em 1em; min-width: 100px; }
+}

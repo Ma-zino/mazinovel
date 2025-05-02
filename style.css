@@ -1,0 +1,387 @@
+/* novels/static/novels/css/style.css */
+
+/* ==========================================================================
+   1. Variables & Base Styles
+   ========================================================================== */
+
+/* --- Fonts --- */
+/* Ensure Google Fonts are linked in base.html <head> */
+
+/* --- Light Theme Variables --- */
+:root {
+    /* Core Light Palette */
+    --bg-light-primary: #ffffff;        /* White background */
+    --bg-light-secondary: #f7f7f7;      /* Very light grey (e.g., header bg, inputs) */
+    --text-dark-primary: #1a1a1a;       /* Very dark text (headings, primary content) */
+    --text-dark-secondary: #555555;     /* Medium dark text (body, meta, links) */
+    --border-light: #e0e0e0;          /* Light border color */
+    --white: #ffffff;
+    --black: #000000;
+
+    /* Accent & Links */
+    --link-primary: #333333; /* Use slightly darker than secondary for links */
+    --link-primary-hover: #000000; /* Black hover for links */
+    --cta-button-bg: #1a1a1a; /* Dark CTA bg */
+    --cta-button-text: #ffffff; /* White CTA text */
+    --cta-button-hover-bg: #444444; /* Darker hover */
+    --accent-color: #34568B; /* Example accent blue (can change) */
+    --error-red: #d93025; /* Google red error color */
+    --error-red-bg-tint: rgba(217, 48, 37, 0.05);
+    --error-red-border-tint: rgba(217, 48, 37, 0.2);
+    --focus-shadow-color: rgba(50, 50, 50, 0.15);
+
+
+    /* Fonts */
+    --font-primary: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Cleaner UI font */
+    --font-secondary: 'Merriweather', Georgia, serif; /* Reading font */
+
+    /* Sizes & Layout */
+    --base-font-size: 16px;
+    --line-height: 1.6;
+    --container-max-width: 1140px;
+    --reading-max-width: 720px;
+    --border-radius-base: 4px; /* Updated base radius */
+    --border-radius-lg: 8px;
+    --modern-form-border-radius: 8px; /* Reduced form radius */
+    --modern-form-input-radius: 4px; /* Reduced input radius */
+    --header-height: 65px; /* Defined header height */
+}
+
+/* --- Base & Reset --- */
+* { box-sizing: border-box; }
+
+html { font-size: var(--base-font-size); scroll-behavior: smooth; }
+
+body {
+    margin: 0; padding: 0;
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    line-height: var(--line-height);
+    background-color: var(--bg-light-primary);
+    color: var(--text-dark-secondary);
+    display: flex; flex-direction: column; min-height: 100vh;
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    margin-top: 1.5em; margin-bottom: 0.7em;
+    line-height: 1.3; font-weight: 700;
+    color: var(--text-dark-primary);
+}
+h1 { font-size: 2.5rem; } h2 { font-size: 2rem; }
+h3 { font-size: 1.6rem; } h4 { font-size: 1.3rem; }
+
+p { margin-top: 0; margin-bottom: 1.2em; }
+
+a { color: var(--link-primary); text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: var(--link-primary-hover); text-decoration: none; }
+
+img { max-width: 100%; height: auto; display: block; border-style: none; }
+
+hr { border: 0; height: 1px; background-color: var(--border-light); margin: 2.5em 0; }
+
+.sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+}
+
+/* ==========================================================================
+   2. Layout & Global Elements (Container, Page Container, Header, Footer)
+   ========================================================================== */
+
+/* --- Layout Containers --- */
+.container { max-width: var(--container-max-width); width: 100%; margin-left: auto; margin-right: auto; padding-left: 20px; padding-right: 20px; }
+.page-container { display: flex; flex-direction: column; min-height: 100vh; }
+.site-main { flex-grow: 1; padding-top: calc(var(--header-height) + 1.5em); padding-bottom: 3em; }
+
+/* --- Header (Skiff Style) --- */
+.site-header.skiff-style-header {
+    background-color: var(--bg-light-secondary); color: var(--text-dark-primary); height: var(--header-height);
+    border-bottom: 1px solid var(--border-light); padding: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; display: flex; align-items: center;
+}
+.skiff-style-header .container { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 1.5em; flex-wrap: nowrap; }
+/* Logo */
+.skiff-style-header .logo a { font-family: var(--font-primary); font-weight: 700; font-size: 1.5rem; color: var(--text-dark-primary); text-decoration: none; display: flex; align-items: center; }
+.skiff-style-header .logo a:hover { color: var(--text-dark-secondary); }
+/* .skiff-style-header .logo img { height: 30px; width: auto; } */
+/* Main Nav */
+.skiff-style-header .main-nav { display: flex; align-items: center; gap: 1.8em; }
+.skiff-style-header .main-nav a { font-family: var(--font-primary); font-size: 0.95rem; font-weight: 500; color: var(--text-dark-secondary); text-decoration: none; text-transform: none; padding: 0.3em 0; border-bottom: none; transition: color 0.2s ease; display: flex; align-items: center; gap: 0.3em; margin-left: 0; letter-spacing: normal; }
+.skiff-style-header .main-nav a:hover { color: var(--text-dark-primary); }
+.skiff-style-header .main-nav .icon-dropdown { width: 10px; height: 10px; stroke: currentColor; stroke-width: 1.5px; opacity: 0.7; }
+/* Right Side Group */
+.skiff-style-header .user-actions-group { display: flex; align-items: center; gap: 1.5em; }
+.skiff-style-header .user-actions { display: flex; align-items: center; gap: 1.5em; }
+.skiff-style-header .user-actions .nav-link,
+.skiff-style-header .user-actions .nav-link-button {
+    font-family: var(--font-primary); font-size: 0.95rem; font-weight: 500; color: var(--text-dark-secondary); text-decoration: none; text-transform: none;
+    padding: 0; margin: 0; border: none; background: none; cursor: pointer; transition: color 0.2s ease; margin-left: 0; letter-spacing: normal; display: inline-block; vertical-align: baseline;
+}
+.skiff-style-header .user-actions .nav-link:hover,
+.skiff-style-header .user-actions .nav-link-button:hover { color: var(--text-dark-primary); border-bottom-color: transparent !important; }
+.skiff-style-header #logout-form { display: inline; margin: 0; padding: 0; vertical-align: baseline; }
+/* CTA Button */
+.skiff-style-header .cta-buttons .button { padding: 0.6em 1.2em; border-radius: var(--border-radius-base); font-size: 0.9rem; font-weight: 500; text-decoration: none; text-align: center; border: none; transition: background-color 0.2s ease; white-space: nowrap; line-height: 1.4; display: flex; align-items: center; gap: 0.4em; background-color: var(--cta-button-bg); color: var(--cta-button-text); }
+.skiff-style-header .cta-buttons .button:hover { background-color: var(--cta-button-hover-bg); transform: none; }
+.skiff-style-header .cta-buttons .button span { font-size: 1.2em; }
+
+/* --- Footer --- */
+.site-footer { background-color: var(--bg-light-secondary); color: var(--text-dark-secondary); padding: 2em 0; margin-top: auto; font-size: 0.9em; text-align: center; border-top: 1px solid var(--border-light); }
+.site-footer a { color: var(--text-dark-primary); }
+.site-footer a:hover { color: var(--text-dark-secondary); }
+
+/* ==========================================================================
+   3. Homepage Styles (Sections, Novel List, Feature Area, Latest Chapters)
+   ========================================================================== */
+
+/* --- Homepage Sections --- */
+.novel-section { margin-bottom: 3em; }
+.section-title { font-size: 1.6rem; color: var(--text-dark-primary); margin-bottom: 1.2em; padding-bottom: 0.5em; border-bottom: 1px solid var(--border-light); display: block; }
+
+/* --- Novel List & Cards (Used for Popular, Newly Added, Completed) --- */
+.novel-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1.8em 1.5em; }
+.novel-item { background-color: var(--white); border: 1px solid var(--border-light); border-radius: var(--border-radius-base); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.novel-item:hover { transform: translateY(-4px); box-shadow: 0 6px 12px rgba(0,0,0,0.08); }
+.novel-cover { line-height: 0; position: relative; }
+.novel-cover a { display: block; }
+.novel-cover img { width: 100%; height: 260px; object-fit: cover; display: block; background-color: var(--bg-light-secondary); }
+.status-badge { position: absolute; bottom: 8px; left: 8px; background-color: rgba(0, 0, 0, 0.7); color: var(--white); padding: 4px 8px; font-size: 0.7rem; font-weight: 500; border-radius: 3px; line-height: 1; z-index: 1; }
+.status-badge.status-completed { background-color: #198754; }
+.status-badge.status-on-hold { background-color: #ffc107; color: #333; }
+.status-badge.status-dropped { background-color: #dc3545; }
+.novel-info { padding: 0.8em; flex-grow: 1; display: flex; flex-direction: column; background-color: var(--white); }
+.novel-info h3 {
+    margin-top: 0; margin-bottom: 0.4em; font-size: 1rem; line-height: 1.3; font-weight: 500;
+    display: -webkit-box; -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Apply vendor prefix */
+    line-clamp: 2;         /* Apply standard property */
+    overflow: hidden; text-overflow: ellipsis; height: 2.6em; color: var(--text-dark-primary);
+}
+.novel-info h3 a { color: inherit; text-decoration: none;}
+.novel-info h3 a:hover { color: var(--link-primary-hover); }
+.novel-meta-detailed { margin-top: auto; padding-top: 0.5em; font-size: 0.75rem; color: var(--text-dark-secondary); display: flex; flex-wrap: wrap; gap: 0.6em 0.8em; border-top: 1px solid var(--border-light); }
+.meta-item { display: flex; align-items: center; gap: 0.3em; }
+.meta-item svg { width: 12px; height: 12px; opacity: 0.8; flex-shrink: 0; }
+.meta-item span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.author-meta a { color: inherit; text-decoration: none; }
+.author-meta a:hover { color: var(--text-dark-primary); text-decoration: underline;}
+.novel-info p { display: none; } /* Hide synopsis on cards */
+
+/* --- Top Feature Area (Homepage) --- */
+.top-feature-section { margin-bottom: 3em; }
+.feature-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2em; }
+.featured-book-banner { background-color: var(--bg-light-secondary); border-radius: var(--border-radius-lg); overflow: hidden; position: relative; min-height: 280px; display: flex; border: 1px solid var(--border-light);}
+.featured-link-wrapper { display: block; color: inherit; text-decoration: none; width: 100%; height: 100%; }
+.featured-link-wrapper:hover { color: inherit; }
+.banner-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center center; filter: blur(5px) brightness(0.7); transform: scale(1.1); z-index: 1; }
+.banner-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.2) 100%); z-index: 2; }
+.placeholder-banner { padding: 2em; text-align: center; color: var(--text-dark-secondary); display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;}
+.banner-content { position: relative; z-index: 3; padding: 2em; display: flex; align-items: center; gap: 1.5em; width: 100%; color: var(--white); }
+.banner-cover-img { flex-shrink: 0; width: 130px; height: auto; }
+.banner-cover-img img { border-radius: var(--border-radius-base); box-shadow: 0 4px 15px rgba(0,0,0,0.4); display: block; width: 100%; height: auto; }
+.banner-text { flex-grow: 1; }
+.banner-title { color: var(--white); margin-top: 0; margin-bottom: 0.5em; font-size: 1.8rem; font-weight: 700; line-height: 1.2; }
+.banner-synopsis { color: #e0e0e0; /* Light color on overlay */ font-size: 0.95rem; line-height: 1.6; margin-bottom: 1em; max-height: 6.5em; overflow: hidden; }
+.banner-author { font-size: 0.85rem; color: #bdbdbd; /* Lighter on overlay */ display: block; font-weight: 500; }
+.banner-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); z-index: 4; } /* Styling needed for dots */
+
+.meet-portal-area { background-color: var(--white); /* White background */ border-radius: var(--border-radius-lg); padding: 1.5em; border: 1px solid var(--border-light); box-shadow: 0 1px 3px rgba(0,0,0,0.04);}
+.aside-title { font-size: 1.3rem; margin-top: 0; margin-bottom: 1.2em; padding-bottom: 0.6em; border-bottom: 1px solid var(--border-light); color: var(--text-dark-primary); }
+.promo-list { list-style: none; padding: 0; margin: 0; }
+.promo-item { margin-bottom: 1em; }
+.promo-item:last-child { margin-bottom: 0; }
+.promo-item a { display: flex; align-items: center; gap: 1em; text-decoration: none; color: inherit; transition: background-color 0.2s ease; padding: 0.5em; border-radius: var(--border-radius-base); }
+.promo-item a:hover { background-color: var(--bg-light-secondary); }
+.promo-item img { width: 60px; height: auto; flex-shrink: 0; border-radius: 3px; }
+.promo-text h4 { font-size: 1rem; margin-top: 0; margin-bottom: 0.2em; color: var(--text-dark-primary); }
+.promo-text p { font-size: 0.85rem; margin-bottom: 0; line-height: 1.4; color: var(--text-dark-secondary); }
+
+
+/* --- START: Latest Chapter Update Section Styles (NEW Grid Layout) --- */
+.latest-chapters-section { margin-bottom: 3em; }
+.chapter-update-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5em; }
+.chapter-update-grid-item { display: flex; flex-direction: row; gap: 1em; background-color: var(--bg-light-secondary); padding: 0.8em; border: 1px solid var(--border-light); border-radius: var(--border-radius-base); align-items: flex-start; transition: background-color 0.2s ease, box-shadow 0.2s ease; }
+.chapter-update-grid-item:hover { background-color: #e9ecef; box-shadow: 0 2px 5px rgba(0,0,0,0.07); }
+.update-cover { flex-shrink: 0; width: 50px; }
+.update-cover a { display: block; position: relative; }
+.update-cover img { width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-radius: 3px; }
+.update-cover .status-badge.mini-badge { position: absolute; top: 2px; right: 2px; font-size: 0.55rem; padding: 1px 3px; border-radius: 2px; background-color: rgba(0, 0, 0, 0.7); color: #fff; line-height: 1.1;}
+.update-info { display: flex; flex-direction: column; justify-content: flex-start; min-width: 0; overflow: hidden; max-height: 75px;}
+.update-novel-title { font-size: 0.95rem; font-weight: 600; color: var(--text-dark-primary); margin: 0 0 0.3em 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; flex-shrink: 0;}
+.update-novel-title a { color: inherit; text-decoration: none; }
+.update-novel-title a:hover { color: var(--link-primary-hover); text-decoration: none; }
+.chapter-links { list-style: none; padding: 0; margin: 0; overflow: hidden; }
+.chapter-links li { margin-bottom: 0.2em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chapter-links li:last-child { margin-bottom: 0; }
+.chapter-links li a { font-size: 0.85rem; color: var(--text-dark-secondary); text-decoration: none; transition: color 0.2s ease; display: block; }
+.chapter-links li a:hover { color: var(--text-dark-primary); }
+.chapter-links .chapter-number { font-weight: 500; color: #777; margin-right: 0.5em; }
+.chapter-links .no-chapters { font-size: 0.8rem; color: #999; font-style: italic; }
+/* --- END: Latest Chapter Update Section Styles --- */
+
+
+/* --- START: Pagination Styles --- */
+.pagination-nav { margin-top: 2.5em; display: flex; justify-content: center; }
+.pagination { display: flex; padding-left: 0; list-style: none; border-radius: var(--border-radius-base); gap: 5px; }
+.page-item {}
+.page-item .page-link { position: relative; display: block; padding: 0.6em 1em; margin-left: -1px; line-height: 1.25; color: var(--link-primary); background-color: var(--white); border: 1px solid var(--border-light); text-decoration: none; transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out; border-radius: var(--border-radius-base); font-size: 0.9rem; }
+.page-item:first-child .page-link { margin-left: 0; }
+.page-item .page-link:hover { z-index: 2; color: var(--link-primary-hover); text-decoration: none; background-color: var(--bg-light-secondary); border-color: #ccc; }
+.page-item.active .page-link { z-index: 3; color: var(--cta-button-text); background-color: var(--cta-button-bg); border-color: var(--cta-button-bg); }
+.page-item.disabled .page-link { color: #6c757d; pointer-events: none; cursor: auto; background-color: var(--white); border-color: var(--border-light); opacity: 0.7; }
+/* --- END: Pagination Styles --- */
+
+
+/* ==========================================================================
+   4. Content Pages (Novel Detail, Chapter Detail)
+   ========================================================================== */
+
+/* --- Novel Detail Page --- */
+.novel-detail-content { background-color: var(--white); padding: 2em 2.5em; border: 1px solid var(--border-light); border-radius: var(--border-radius-lg); box-shadow: 0 3px 8px rgba(0,0,0,0.06); }
+.novel-header { gap: 2.5em; margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid var(--border-light); display: grid; grid-template-columns: 250px 1fr;}
+.novel-detail-cover img { box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: var(--border-radius-base); width: 100%;}
+.novel-detail-info h2 { color: var(--text-dark-primary); margin-top: 0; font-size: 2.5rem; }
+.novel-detail-info .novel-meta { color: var(--text-dark-secondary); font-size: 1em; margin-bottom: 1.5em; font-family: var(--font-primary); font-style: normal;}
+.novel-detail-info h3 { color: var(--text-dark-primary); border-bottom: 2px solid var(--text-dark-secondary); font-size: 1.5rem; margin-top: 1.5em; margin-bottom: 0.5em; padding-bottom: 0.3em; display: inline-block; }
+.synopsis { color: var(--text-dark-secondary); line-height: var(--line-height); font-size: 1.05em;}
+.chapter-list-section { margin-top: 2.5em; }
+.chapter-list-section h3 { color: var(--text-dark-primary); border-bottom: 1px solid var(--border-light); font-size: 1.8rem; margin-bottom: 1em; padding-bottom: 0.5em;}
+.chapter-list { list-style: none; padding-left: 0; }
+.chapter-list li { border-bottom: 1px solid var(--border-light); margin-bottom: 0; }
+.chapter-list li:last-child { border-bottom: none;}
+.chapter-list li a { color: var(--text-dark-secondary); font-size: 1.1em; font-weight: 500; font-family: var(--font-primary); display: block; padding: 0.8em 0.5em; text-decoration: none; transition: background-color 0.2s ease, color 0.2s ease; }
+.chapter-list li a:hover { color: var(--text-dark-primary); background-color: var(--bg-light-secondary); text-decoration: none; }
+
+/* --- Chapter Detail Page --- */
+.chapter-header { text-align: center; margin-bottom: 3em; padding-bottom: 1.5em; border-bottom: 1px solid var(--border-light); }
+.chapter-header h2 { font-size: 1.2rem; margin-bottom: 0.1em; font-weight: 400; font-family: var(--font-primary); }
+.chapter-header h2 a { color: var(--text-dark-secondary); text-decoration: none; }
+.chapter-header h2 a:hover { color: var(--text-dark-primary); text-decoration: underline; }
+.chapter-header h3 { color: var(--text-dark-primary); font-size: 2.2rem; margin-top: 0; }
+.chapter-content { font-family: var(--font-secondary); font-size: 1.1rem; line-height: 1.8; max-width: var(--reading-max-width); margin: 0 auto 3em auto; color: var(--text-dark-primary); }
+.chapter-content p { margin-bottom: 1.8em; }
+.chapter-content strong { font-weight: bold; color: var(--text-dark-primary); }
+.chapter-content em { font-style: italic; color: #666; }
+.chapter-content blockquote { border-left: 3px solid var(--border-light); margin-left: 0; margin-right: 0; padding-left: 1.5em; color: var(--text-dark-secondary); font-style: italic; font-size: 1.05em; }
+.chapter-content hr { background-color: var(--border-light); margin: 3em auto; width: 60%; height: 1px; border: 0;}
+.chapter-navigation { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1em; margin: 3em auto 1em auto; padding: 1.5em 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); max-width: calc(var(--reading-max-width) + 100px); font-family: var(--font-primary); }
+.chapter-navigation a, .chapter-navigation .nav-disabled { border: 1px solid var(--border-light); border-radius: var(--border-radius-base); background-color: var(--white); padding: 0.7em 1.4em; text-decoration: none; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s ease; display: inline-block; text-align: center; min-width: 150px; }
+.chapter-navigation a { color: var(--text-dark-primary); }
+.chapter-navigation a:hover { background-color: var(--bg-light-secondary); color: var(--text-dark-primary); border-color: #ccc; text-decoration: none; }
+.nav-disabled { color: #aaa; background-color: var(--bg-light-secondary); border-color: #ddd; cursor: default; }
+.nav-toc a { background: none; border:none; color: var(--text-dark-secondary); font-weight: 500; text-transform: uppercase; padding: 0.7em 0; min-width: auto; }
+.nav-toc a:hover { background: none; color: var(--text-dark-primary); text-decoration: underline; }
+
+/* ==========================================================================
+   5. Authentication Pages (Login/Signup)
+   ========================================================================== */
+
+.login-page-wrapper { display: flex; width: 100%; align-items: stretch; flex-grow: 1; }
+.login-visual-side { flex: 1; background-color: var(--bg-light-secondary); background-image: none; /* Or set specific image */ display: flex; justify-content: center; align-items: center; }
+.login-form-side { flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px; background-color: var(--bg-light-primary); }
+.login-form-side.modern-form .auth-form-container { background-color: var(--white); padding: 40px 50px; border-radius: var(--modern-form-border-radius); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); max-width: 450px; width: 100%; margin: 0; border: 1px solid var(--border-light); }
+.login-form-side:not(.modern-form) .auth-form-container { background-color: var(--white); border: 1px solid var(--border-light); max-width: 400px; width: 100%; margin: 0; padding: 30px; border-radius: var(--border-radius-base); }
+.login-form-side h2 { color: var(--text-dark-primary); margin-top: 0; font-size: 1.8em; font-weight: 600; margin-bottom: 15px; text-align: center; }
+.login-form-side.modern-form h2 { margin-bottom: 25px; }
+.login-form-side .form-subtitle { color: var(--text-dark-secondary); font-size: 1em; margin-bottom: 25px; text-align: center; }
+.social-login-placeholder { margin-bottom: 20px; }
+.button.button-google-placeholder { background-color: var(--white); color: var(--text-dark-secondary); border: 1px solid var(--border-light); width: 100%; padding: 12px; font-weight: 500; border-radius: var(--modern-form-input-radius); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.button.button-google-placeholder:hover { background-color: var(--bg-light-secondary); border-color: #ccc; }
+.separator { color: var(--text-dark-secondary); opacity: 0.7; display: flex; align-items: center; text-align: center; margin: 25px 0; }
+.separator::before, .separator::after { content: ''; flex: 1; border-bottom: 1px solid var(--border-light); }
+.separator span { padding: 0 15px; font-size: 0.9em; }
+.auth-form { width: 100%; }
+.auth-form .form-group { margin-bottom: 15px; }
+.auth-form input[type="text"], .auth-form input[type="password"], .auth-form input[type="email"] { color: var(--text-dark-primary); background-color: var(--bg-light-secondary); border: 1px solid var(--border-light); width: 100%; padding: 14px 18px; font-size: 0.95em; border-radius: var(--modern-form-input-radius); box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.auth-form input::placeholder { color: #999; }
+.auth-form input:focus { border-color: var(--link-primary); outline: 0; box-shadow: 0 0 0 0.15rem var(--focus-shadow-color); }
+.form-errors, .field-errors { color: var(--error-red); font-size: 0.85em; margin-top: 5px; margin-bottom: 10px; text-align: left; }
+.field-errors p { margin: 2px 0; }
+.form-errors p { margin: 5px 0; padding: 5px 10px; background-color: var(--error-red-bg-tint); border: 1px solid var(--error-red-border-tint); border-radius: var(--border-radius-base); }
+.form-options { display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; margin-top: 10px; margin-bottom: 20px; }
+.form-options .remember-me { color: var(--text-dark-secondary); display: flex; align-items: center; gap: 5px; }
+.form-options .forgot-password { color: var(--link-primary); text-decoration: none; }
+.form-options .forgot-password:hover { color: var(--link-primary-hover); text-decoration: underline; }
+.help-text-inline { color: var(--text-dark-secondary); font-size: 0.8em; display: block; margin-top: 5px;}
+.button { display: inline-block; padding: 12px 25px; border: 1px solid var(--border-light); border-radius: var(--border-radius-base); font-size: 1em; font-weight: 500; text-align: center; text-decoration: none; cursor: pointer; transition: background-color 0.2s ease, transform 0.1s ease; line-height: normal; background-color: var(--white); color: var(--text-dark-primary);}
+.button:hover { background-color: var(--bg-light-secondary); border-color: #ccc; }
+.button-primary { background-color: var(--link-primary); color: var(--white); border: none;}
+.button-primary:hover { background-color: var(--link-primary-hover); transform: translateY(-1px); border: none;}
+.auth-form .button { width: 100%; padding: 14px; font-size: 1rem; margin-top: 15px; }
+.button.button-signup, .button.button-login { background-color: var(--cta-button-bg); color: var(--cta-button-text); border: none; }
+.button.button-signup:hover, .button.button-login:hover { background-color: var(--cta-button-hover-bg); border: none; transform: none; }
+.form-links { color: var(--text-dark-secondary); text-align: center; margin-top: 25px; font-size: 0.9em;}
+.form-links a { color: var(--link-primary); font-weight: 500; text-decoration: none; }
+.form-links a:hover { color: var(--link-primary-hover); text-decoration: underline; }
+
+/* ==========================================================================
+   6. Responsive Design
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .site-header.skiff-style-header .header-center { display: none; }
+    .site-header.skiff-style-header .container { gap: 1em; }
+    .site-header.skiff-style-header .header-group { gap: 1em; }
+}
+@media (max-width: 992px) {
+    .novel-header { grid-template-columns: 200px 1fr; gap: 1.5em; }
+    .novel-detail-info h2 { font-size: 2rem; }
+    .login-form-side.modern-form .auth-form-container { padding: 30px 30px; }
+    .novel-list { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+    .chapter-update-grid { grid-template-columns: repeat(3, 1fr); } /* Chapter grid */
+}
+@media (max-width: 768px) {
+    :root { --base-font-size: 15px; }
+    h1 { font-size: 2rem; } h2 { font-size: 1.6rem; } h3 { font-size: 1.4rem; }
+    .container { padding-left: 15px; padding-right: 15px; }
+    .site-main { padding-top: calc(var(--header-height) + 1em); }
+    /* Header Responsive */
+    .site-header.skiff-style-header .container { justify-content: space-between; gap: 1em; }
+    .site-header.skiff-style-header .main-nav { display: none; }
+    .site-header.skiff-style-header .user-actions { display: none; }
+    /* Keep Logo and CTA */
+    /* Novel Detail Responsive */
+    .novel-header { grid-template-columns: 1fr; text-align: center; }
+    .novel-detail-cover { margin: 0 auto 1em auto; max-width: 200px; width: auto; }
+    .novel-detail-cover img { margin: 0 auto; }
+    .novel-detail-info h2 { text-align: center; }
+    .novel-detail-info h3 { display: block; text-align: center; border-bottom: none; margin-top: 2em; }
+    /* Chapter Detail Responsive */
+    .chapter-content { max-width: 95%; font-size: 1rem; }
+    .chapter-navigation { flex-direction: column; gap: 1em; max-width: 95%;}
+    .chapter-navigation a, .chapter-navigation .nav-disabled { width: 100%; }
+    .nav-toc { order: -1; width: auto; padding: 0.5em 0;}
+    /* Auth Page Responsive */
+    .login-page-wrapper { flex-direction: column; }
+    .login-visual-side { display: none; }
+    .login-form-side { flex: 1; padding: 30px 15px; align-items: center; }
+    .login-form-side .auth-form-container { max-width: 100%; box-shadow: none; border: none; }
+    .login-form-side.modern-form .auth-form-container { border-radius: 0; padding: 20px; }
+    /* Novel List */
+    .novel-list { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    /* Chapter grid */
+    .chapter-update-grid { grid-template-columns: repeat(2, 1fr); }
+    .page-item .page-link { padding: 0.5em 0.8em; font-size: 0.85rem; } /* Pagination */
+}
+@media (max-width: 480px) {
+    /* Header */
+    .site-header.skiff-style-header .logo a { font-size: 1.3rem; }
+    .site-header.skiff-style-header .cta-buttons .button { font-size: 0.85rem; padding: 0.5em 1em;}
+    /* Other General */
+    .novel-info h3 { font-size: 1rem; height: 2.6em;}
+    .novel-detail-info h2 { font-size: 1.8rem; }
+    .chapter-header h3 { font-size: 1.8rem; }
+    .chapter-navigation a, .chapter-navigation .nav-disabled { font-size: 0.8rem; padding: 0.6em 1em; min-width: 100px; }
+    /* Auth Page Small */
+    .login-form-side h2 { font-size: 1.6em; }
+    .auth-form input[type="text"], .auth-form input[type="password"], .auth-form input[type="email"] { padding: 12px 15px; font-size: 0.9em; }
+    .auth-form .button { padding: 12px; font-size: 1em; }
+    .login-form-side.modern-form .auth-form-container { padding: 25px 20px; }
+    /* Novel List */
+    .novel-list { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 1em; }
+    .novel-cover img { height: 200px; }
+    /* Chapter Grid */
+    .chapter-update-grid { grid-template-columns: 1fr; }
+}

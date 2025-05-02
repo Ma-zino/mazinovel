@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ novel.title }} - Ch. {{ chapter.chapter_number }}: {{ chapter.title }}{% endblock title %}
+
+{# Remove the inline style block from here #}
+
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'novels/css/chapter_detail.css' %}">
+{% endblock extra_head %}
+
+{% block content %}
+    <div class="chapter-header">
+        <h2><a href="{% url 'novels:novel_detail' slug=novel.slug %}">{{ novel.title }}</a></h2>
+        <h3>Chapter {{ chapter.chapter_number }}: {{ chapter.title }}</h3>
+        {# Optional: Link back to ToC in header? Already have nav below #}
+    </div>
+
+    <article class="chapter-content">
+        {{ chapter.content|linebreaksbr }}
+    </article>
+
+    <nav class="chapter-navigation">
+        <div class="nav-prev">
+            {% if previous_chapter %}
+                <a href="{% url 'novels:chapter_detail' novel_slug=novel.slug chapter_number=previous_chapter.chapter_number %}">
+                    ← Previous Chapter
+                </a>
+            {% else %}
+                <span class="nav-disabled">← Previous Chapter</span>
+            {% endif %}
+        </div>
+
+        <div class="nav-toc">
+             <a href="{% url 'novels:novel_detail' slug=novel.slug %}">Table of Contents</a>
+        </div>
+
+        <div class="nav-next">
+            {% if next_chapter %}
+                <a href="{% url 'novels:chapter_detail' novel_slug=novel.slug chapter_number=next_chapter.chapter_number %}">
+                    Next Chapter →
+                </a>
+            {% else %}
+                 <span class="nav-disabled">Next Chapter →</span>
+            {% endif %}
+        </div>
+    </nav>
+{% endblock content %}

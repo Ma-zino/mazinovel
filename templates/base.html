@@ -1,0 +1,93 @@
+<!-- templates/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Base template for Awesome Novel Portal -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Awesome Novel Portal{% endblock title %}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- End Google Fonts -->
+
+    {% if request.resolver_match.url_name == 'novel_detail' %} {# Only load on detail page #}
+        <script src="{% static 'novels/js/novel_detail_tabs.js' %}"></script>
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}"> {# Main base styles #}
+    {% block extra_head %}{% endblock extra_head %} {# Placeholder for page styles #}
+
+
+</head>
+<body>
+    <div class="page-container">
+
+        {# --- START: Skiff-Inspired Header Structure --- #}
+        {# Add skiff-style-header class for scoping #}
+        <header class="site-header skiff-style-header">
+            <div class="container">
+                {# Far Left: Logo #}
+                <div class="logo">
+                    {# Keep text, or replace with <img> for image logo #}
+                    <a href="{% url 'novels:novel_list' %}">ANP</a>
+                </div>
+
+                {# Center/Left: Main Nav (adjusted position via flex) #}
+                <nav class="main-nav" aria-label="Main navigation">
+                    {# === UPDATE NAV LINKS: Adapt to your needs === #}
+                    <a href="{% url 'novels:novel_list' %}">Home</a>
+                    <a href="#">Browse <svg class="icon-dropdown" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+                    <a href="#">Rankings</a>
+                    <a href="#">Contests</a>
+                </nav>
+
+                {# Far Right: User Actions & CTA #}
+                <div class="user-actions-group">
+                    <nav class="user-actions" aria-label="User actions">
+                       {% if user.is_authenticated %}
+                           {# Logged-in state #}
+                           <a href="#" class="nav-link user-profile-link">
+                               My Account
+                           </a>
+                            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: inline; margin:0; padding:0; vertical-align: baseline;">
+                               {% csrf_token %}
+                               <button type="submit" class="nav-link-button nav-link">Logout</button>
+                           </form>
+                       {% else %}
+                           {# Logged-out state #}
+                           <a href="{% url 'login' %}" class="nav-link">Sign in</a>
+                           {# The CTA Button MOVED inside the ELSE block #}
+                           <div class="cta-buttons">
+                               <a href="{% url 'signup' %}" class="button button-cta">Sign Up <span aria-hidden="true">→</span></a> {# Text Changed #}
+                           </div>
+                       {% endif %}
+                   </nav>
+                   {# The CTA Button Div was MOVED from here #}
+               </div>
+
+            </div> {# End container #}
+        </header>
+        {# --- END: Skiff-Inspired Header --- #}
+
+
+        <main class="site-main">
+            <div class="container">
+                {% block content %}
+                    {# Content from child templates will appear here #}
+                    <p>Default content - this should be replaced by child templates.</p>
+                {% endblock content %}
+            </div>
+        </main>
+
+        {# Footer remains the same #}
+        <footer class="site-footer">
+             {# ... footer content ... #}
+        </footer>
+
+    </div> {# End page-container #}
+    {% block extra_scripts %}{% endblock extra_scripts %}
+</body>
+</html>

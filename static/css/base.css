@@ -1,0 +1,168 @@
+/* mazinovel/static/css/base.css */
+/* Global styles: Variables, Resets, Base Typography, Layout Containers, Footer */
+
+/* ==========================================================================
+   1. Variables & Base Styles
+   ========================================================================== */
+
+/* --- Fonts --- */
+/* Ensure Google Fonts are linked in base.html <head> */
+
+/* --- Light Theme Variables --- */
+:root {
+    /* Core Light Palette */
+    --bg-light-primary: #ffffff;        /* White background */
+    --bg-light-secondary: #f7f7f7;      /* Very light grey (e.g., header bg, inputs) */
+    --text-dark-primary: #1a1a1a;       /* Very dark text (headings, primary content) */
+    --text-dark-secondary: #555555;     /* Medium dark text (body, meta, links) */
+    --border-light: #e0e0e0;          /* Light border color */
+    --white: #ffffff;
+    --black: #000000;
+
+    /* Accent & Links */
+    --link-primary: #333333; /* Use slightly darker than secondary for links */
+    --link-primary-hover: #000000; /* Black hover for links */
+    --cta-button-bg: #1a1a1a; /* Dark CTA bg */
+    --cta-button-text: #ffffff; /* White CTA text */
+    --cta-button-hover-bg: #444444; /* Darker hover */
+    --accent-color: #34568B; /* Example accent blue (can change) */
+    --error-red: #d93025; /* Google red error color */
+    --error-red-bg-tint: rgba(217, 48, 37, 0.05);
+    --error-red-border-tint: rgba(217, 48, 37, 0.2);
+    --focus-shadow-color: rgba(50, 50, 50, 0.15);
+
+
+    /* Fonts */
+    --font-primary: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Cleaner UI font */
+    --font-secondary: 'Merriweather', Georgia, serif; /* Reading font */
+
+    /* Sizes & Layout */
+    --base-font-size: 16px;
+    --line-height: 1.6;
+    --container-max-width: 1140px;
+    --reading-max-width: 720px;
+    --border-radius-base: 4px; /* Updated base radius */
+    --border-radius-lg: 8px;
+    --modern-form-border-radius: 8px; /* Reduced form radius */
+    --modern-form-input-radius: 4px; /* Reduced input radius */
+    --header-height: 65px; /* Defined header height */
+}
+
+/* --- Base & Reset --- */
+* { box-sizing: border-box; }
+
+html { font-size: var(--base-font-size); scroll-behavior: smooth; }
+
+
+
+/* --- Header (Skiff Style) --- */
+.site-header.skiff-style-header {
+    background-color: var(--bg-light-secondary); color: var(--text-dark-primary); height: var(--header-height);
+    border-bottom: 1px solid var(--border-light); padding: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; display: flex; align-items: center;
+}
+.skiff-style-header .container { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 1.5em; flex-wrap: nowrap; }
+/* Logo */
+.skiff-style-header .logo a { font-family: var(--font-primary); font-weight: 700; font-size: 1.5rem; color: var(--text-dark-primary); text-decoration: none; display: flex; align-items: center; }
+.skiff-style-header .logo a:hover { color: var(--text-dark-secondary); }
+/* .skiff-style-header .logo img { height: 30px; width: auto; } */
+/* Main Nav */
+.skiff-style-header .main-nav { display: flex; align-items: center; gap: 1.8em; }
+.skiff-style-header .main-nav a { font-family: var(--font-primary); font-size: 0.95rem; font-weight: 500; color: var(--text-dark-secondary); text-decoration: none; text-transform: none; padding: 0.3em 0; border-bottom: none; transition: color 0.2s ease; display: flex; align-items: center; gap: 0.3em; margin-left: 0; letter-spacing: normal; }
+.skiff-style-header .main-nav a:hover { color: var(--text-dark-primary); }
+.skiff-style-header .main-nav .icon-dropdown { width: 10px; height: 10px; stroke: currentColor; stroke-width: 1.5px; opacity: 0.7; }
+/* Right Side Group */
+.skiff-style-header .user-actions-group { display: flex; align-items: center; gap: 1.5em; }
+.skiff-style-header .user-actions { display: flex; align-items: center; gap: 1.5em; }
+.skiff-style-header .user-actions .nav-link,
+.skiff-style-header .user-actions .nav-link-button {
+    font-family: var(--font-primary); font-size: 0.95rem; font-weight: 500; color: var(--text-dark-secondary); text-decoration: none; text-transform: none;
+    padding: 0; margin: 0; border: none; background: none; cursor: pointer; transition: color 0.2s ease; margin-left: 0; letter-spacing: normal; display: inline-block; vertical-align: baseline;
+}
+.skiff-style-header .user-actions .nav-link:hover,
+.skiff-style-header .user-actions .nav-link-button:hover { color: var(--text-dark-primary); border-bottom-color: transparent !important; }
+.skiff-style-header #logout-form { display: inline; margin: 0; padding: 0; vertical-align: baseline; }
+/* CTA Button */
+.skiff-style-header .cta-buttons .button { padding: 0.6em 1.2em; border-radius: var(--border-radius-base); font-size: 0.9rem; font-weight: 500; text-decoration: none; text-align: center; border: none; transition: background-color 0.2s ease; white-space: nowrap; line-height: 1.4; display: flex; align-items: center; gap: 0.4em; background-color: var(--cta-button-bg); color: var(--cta-button-text); }
+.skiff-style-header .cta-buttons .button:hover { background-color: var(--cta-button-hover-bg); transform: none; }
+.skiff-style-header .cta-buttons .button span { font-size: 1.2em; }
+
+
+
+
+body {
+    margin: 0; padding: 0;
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    line-height: var(--line-height);
+    background-color: var(--bg-light-primary);
+    color: var(--text-dark-secondary);
+    display: flex; flex-direction: column; min-height: 100vh;
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    margin-top: 1.5em; margin-bottom: 0.7em;
+    line-height: 1.3; font-weight: 700;
+    color: var(--text-dark-primary);
+}
+h1 { font-size: 2.5rem; } h2 { font-size: 2rem; }
+h3 { font-size: 1.6rem; } h4 { font-size: 1.3rem; }
+
+p { margin-top: 0; margin-bottom: 1.2em; }
+
+a { color: var(--link-primary); text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: var(--link-primary-hover); text-decoration: none; }
+
+img { max-width: 100%; height: auto; display: block; border-style: none; }
+
+hr { border: 0; height: 1px; background-color: var(--border-light); margin: 2.5em 0; }
+
+.sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+}
+
+/* ==========================================================================
+   2. Layout & Global Elements (Container, Page Container, Header, Footer)
+   ========================================================================== */
+
+/* --- Layout Containers --- */
+.container { max-width: var(--container-max-width); width: 100%; margin-left: auto; margin-right: auto; padding-left: 20px; padding-right: 20px; }
+.page-container { display: flex; flex-direction: column; min-height: 100vh; }
+.site-main { flex-grow: 1; padding-top: calc(var(--header-height) + 1.5em); padding-bottom: 3em; }
+
+/* --- Footer --- */
+.site-footer { background-color: var(--bg-light-secondary); color: var(--text-dark-secondary); padding: 2em 0; margin-top: auto; font-size: 0.9em; text-align: center; border-top: 1px solid var(--border-light); }
+.site-footer a { color: var(--text-dark-primary); }
+.site-footer a:hover { color: var(--text-dark-secondary); }
+
+
+/* --- Base Responsive Adjustments --- */
+@media (max-width: 768px) {
+    :root { --base-font-size: 15px; }
+    h1 { font-size: 2rem; } h2 { font-size: 1.6rem; } h3 { font-size: 1.4rem; }
+    .container { padding-left: 15px; padding-right: 15px; }
+    .site-main { padding-top: calc(var(--header-height) + 1em); }
+}
+
+
+/* --- Responsive Header --- */
+@media (max-width: 1024px) {
+    .site-header.skiff-style-header .header-center { display: none; } /* Example responsive rule */
+    .site-header.skiff-style-header .container { gap: 1em; }
+    .site-header.skiff-style-header .header-group { gap: 1em; } /* Note: .header-group doesn't exist in Skiff HTML, might need to adjust selectors if you kept it */
+}
+@media (max-width: 768px) {
+    /* Header Responsive */
+    .site-header.skiff-style-header .container { justify-content: space-between; gap: 1em; }
+    .site-header.skiff-style-header .main-nav { display: none; }
+    .site-header.skiff-style-header .user-actions { display: none; }
+    /* Keep Logo and CTA */
+}
+@media (max-width: 480px) {
+    /* Header */
+    .site-header.skiff-style-header .logo a { font-size: 1.3rem; }
+    .site-header.skiff-style-header .cta-buttons .button { font-size: 0.85rem; padding: 0.5em 1em;}
+}
