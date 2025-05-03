@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="150" cy="150" r="145" fill="#f8f5f0" />
+  
+  <!-- Open book shape -->
+  <path d="M60,150 Q60,90 150,90 Q240,90 240,150 L240,210 Q240,235 150,235 Q60,235 60,210 Z" fill="#f3f4f6" stroke="#4b5563" stroke-width="3" />
+  
+  <!-- Left page -->
+  <path d="M65,150 Q65,95 150,95 L150,230 Q65,230 65,210 Z" fill="white" stroke="#4b5563" stroke-width="1" />
+  
+  <!-- Right page -->
+  <path d="M150,95 Q235,95 235,150 L235,210 Q235,230 150,230 Z" fill="white" stroke="#4b5563" stroke-width="1" />
+  
+  <!-- Book spine -->
+  <path d="M150,95 L150,230" stroke="#4b5563" stroke-width="2" />
+  
+  <!-- Text lines on left page -->
+  <path d="M80,120 L135,120 M80,130 L135,130 M80,140 L135,140 M80,150 L120,150 M80,160 L135,160 M80,170 L135,170 M80,180 L135,180 M80,190 L120,190 M80,200 L135,200" stroke="#d1d5db" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- Text lines on right page -->
+  <path d="M165,120 L220,120 M165,130 L220,130 M165,140 L220,140 M165,150 L205,150 M165,160 L220,160 M165,170 L220,170 M165,180 L220,180 M165,190 L205,190 M165,200 L220,200" stroke="#d1d5db" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- Letter M integrated with bookmark -->
+  <path d="M130,60 L170,60 L170,120 L150,100 L130,120 Z" fill="#7c3aed" />
+  <path d="M138,70 L145,70 L150,80 L155,70 L162,70 L162,85 L155,85 L155,78 L150,85 L145,78 L145,85 L138,85 Z" fill="white" />
+  
+  <!-- Mazinovel text -->
+  <g transform="translate(82, 260)">
+    <text font-family="Arial, sans-serif" font-weight="bold" font-size="24" fill="#7c3aed">
+      MAZINOVEL
+    </text>
+  </g>
+  
+  <!-- Decorative swirl -->
+  <path d="M60,110 C70,100 80,100 85,110 C90,120 95,120 100,110" stroke="#7c3aed" stroke-width="2" fill="none" />
+  <path d="M200,110 C210,100 220,100 225,110 C230,120 235,120 240,110" stroke="#7c3aed" stroke-width="2" fill="none" />
+  
+  <!-- Subtle glow for visual interest -->
+  <circle cx="150" cy="150" r="145" fill="url(#glowGradient)" fill-opacity="0.2" />
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0.1" />
+    </linearGradient>
+  </defs>
+</svg>

@@ -2,6 +2,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Rating
+
 
 class CustomUserCreationForm(UserCreationForm):
     # --- Define fields inherited from UserCreationForm with desired widgets ---
@@ -50,3 +52,17 @@ class CustomUserCreationForm(UserCreationForm):
         if email and User.objects.filter(email__iexact=email).exists(): # Use iexact for case-insensitive check
             raise forms.ValidationError("An account with this email address already exists.")
         return email
+
+
+class RatingForm(forms.ModelForm):
+    """Form for users to submit a rating."""
+    # Use RadioSelect for star-like choices initially
+    rating = forms.ChoiceField(
+        choices=Rating.RATING_CHOICES,
+        widget=forms.RadioSelect,
+        label="Your Rating" # Optional label override
+    )
+
+    class Meta:
+        model = Rating
+        fields = ['rating'] # Only expose the rating field to the user

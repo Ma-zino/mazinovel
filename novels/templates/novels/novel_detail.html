@@ -5,18 +5,7 @@
 
 {% block extra_head %}
     <link rel="stylesheet" href="{% static 'novels/css/novel_detail.css' %}">
-    {# SVG Icons Definition for Rating Stars #}
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-      <symbol id="icon-star-filled" viewBox="0 0 16 16">
-        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-      </symbol>
-      <symbol id="icon-star-half" viewBox="0 0 16 16">
-         <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.318l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.5.5 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.565.565 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223v9.804z"/>
-       </symbol>
-       <symbol id="icon-star-empty" viewBox="0 0 16 16">
-         <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.576-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-       </symbol>
-    </svg>
+    {# SVG Icons are now in base.html #}
 {% endblock extra_head %}
 
 {% block content %}
@@ -25,116 +14,222 @@
 <div class="breadcrumb-container">
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'novels:novel_list' %}">Home</a></li>
-        {# Add genre loop later if available #}
-        <li class="breadcrumb-item"><a href="#">Fantasy</a></li>
+        <li class="breadcrumb-item"><a href="#">Fantasy</a></li> {# Placeholder Genre #}
         <li class="breadcrumb-item">{{ novel.title }}</li>
     </ul>
 </div>
 
-{# --- Main Content Wrapper (optional, can use site-main directly) --- #}
+{# --- Main Content Wrapper --- #}
 <div class="main-content">
     {# --- Novel Header Section (Cover + Info Grid) --- #}
     <div class="novel-header">
         <div class="novel-cover">
-            {% if novel.cover_image %}
-                <img src="{{ novel.cover_image.url }}" alt="Cover for {{ novel.title }}">
-            {% else %}
-                 <img src="{% static 'novels/images/placeholder.png' %}" alt="Placeholder Cover">
+            {% if novel.cover_image %} <img src="{{ novel.cover_image.url }}" alt="Cover for {{ novel.title }}">
+            {% else %} <img src="{% static 'novels/images/placeholder.png' %}" alt="Placeholder Cover">
             {% endif %}
             <div class="cover-badges">
-                {# Add badges dynamically later if needed #}
                 <span class="badge badge-main-type">ORIGINAL</span>
-                 {# Could add status here too, using specific classes from style.css #}
-                 {# <span class="badge status-badge status-{{ novel.status|slugify }}">{{ novel.get_status_display }}</span> #}
             </div>
         </div>
         <div class="novel-info">
             <h1 class="novel-title">{{ novel.title }}</h1>
             <div class="novel-meta">
-                {# Genre placeholder #}
-                <div class="meta-item genre-item">
-                    <span>Fantasy</span>
-                </div>
-                {# Chapter Count placeholder #}
+                <div class="meta-item genre-item"><span>Fantasy</span></div>
                 <div class="meta-item chapters-item">
-                    <span>{{ novel.chapters.count }} Chapters</span> {# Add efficient counting method later #}
+                     <svg class="stat-icon"><use xlink:href="#icon-chapters"></use></svg>
+                    <span>{{ novel.chapters.count }} Chapters</span>
                 </div>
-                {# Views placeholder #}
                 <div class="meta-item views-item">
-                    <span>2.1M Views</span>
+                    <svg class="stat-icon"><use xlink:href="#icon-views"></use></svg>
+                    <span>{{ novel.view_count }} Views</span>
                 </div>
             </div>
             <div class="author-info">
-                <span>Author: </span>
-                {# Add author link if profile pages exist later #}
-                <a href="#" class="author-name">{{ novel.author.username }}</a>
+                <span>Author:</span> <a href="#" class="author-name">{{ novel.author.username }}</a>
             </div>
-            {# Rating placeholder #}
-            <div class="rating">
-                 <div class="stars">
-                     {# Render stars dynamically based on rating later #}
-                     <svg><use xlink:href="#icon-star-filled"></use></svg>
-                     <svg><use xlink:href="#icon-star-filled"></use></svg>
-                     <svg><use xlink:href="#icon-star-filled"></use></svg>
-                     <svg><use xlink:href="#icon-star-filled"></use></svg>
-                     <svg><use xlink:href="#icon-star-half"></use></svg>
-                 </div>
-                <span class="rating-number">4.5</span>
-                <span class="rating-count">(31 ratings)</span>
+
+            {# --- SIMPLIFIED Rating Display (Average Only) --- #}
+            <div class="user-rating-section simplified-rating"> {# Added class #}
+                <div class="rating-display-static">
+                    <div class="stars-display" title="{{ novel.average_rating|default_if_none:'0.0' }}/5">
+                         {% with avg=novel.average_rating|default_if_none:0.0 avg_floor=avg|stringformat:".0f"|add:"0" avg_diff=avg|floatformat:1|slice:"-1" %}
+                             {% for i in "12345" %}
+                                {% if i|add:"0" <= avg_floor %}<svg class="star-icon filled"><use xlink:href="#icon-star-filled"></use></svg>
+                                {% elif i|add:"0" == avg_floor|add:"1" and avg_diff >= '5' %}<svg class="star-icon half"><use xlink:href="#icon-star-half"></use></svg>
+                                {% else %}<svg class="star-icon empty"><use xlink:href="#icon-star-empty"></use></svg>
+                                {% endif %}
+                             {% endfor %}
+                        {% endwith %}
+                    </div>
+                     <span class="rating-display-score">{{ novel.average_rating|default_if_none:"N/A" }}</span>
+                     <span class="rating-display-count">({{ novel.rating_count }} ratings)</span>
+                </div>
+                 {# Login prompt removed from here - will be part of new review section #}
+                 {# Form removed from here #}
             </div>
-             {# Power Ranking placeholder #}
-             {# <div class="power-ranking"> #}
-             {#    <span>#13 Original Power Ranking</span> #}
-             {# </div> #}
+            {# --- END SIMPLIFIED Rating --- #}
+
+            {# Action Buttons #}
             <div class="action-buttons">
-                 {# Point Read to first chapter or ToC tab? #}
-                {% if novel.chapters.first %}
-                    <a href="{{ novel.chapters.first.get_absolute_url }}" class="btn btn-primary">READ</a>
-                {% else %}
-                     <a href="#" class="btn btn-primary disabled" aria-disabled="true">READ</a>
-                {% endif %}
-                {# Add to Library needs backend feature #}
+                 {% with first_chapter=chapters.first %}
+                    {% if first_chapter %}<a href="{{ first_chapter.get_absolute_url }}" class="btn btn-primary">READ</a>
+                    {% else %}<a href="#" class="btn btn-primary disabled" aria-disabled="true">READ</a>
+                    {% endif %}
+                 {% endwith %}
                 <button type="button" class="btn btn-secondary">ADD TO LIBRARY</button>
             </div>
-            <div class="report-link">
-                <a href="#">Report story</a>
-            </div>
-        </div>
+            {# Report Link #}
+            <div class="report-link"><a href="#">Report story</a></div>
+        </div> {# End .novel-info #}
     </div> {# End .novel-header #}
 
-    {# --- Tabs Section --- #}
+    {# --- Tabs Section (About/Table of Contents) --- #}
     <div class="tabs-section">
         <div class="tab-nav">
             <button class="tab-btn active" data-tab-target="#about-tab" type="button">About</button>
             <button class="tab-btn" data-tab-target="#toc-tab" type="button">Table of Contents</button>
         </div>
-        <div class="tab-content-wrapper"> {# Wrapper added for clarity #}
+        <div class="tab-content-wrapper">
             <div id="about-tab" class="tab-content active">
                 <h3>Synopsis</h3>
-                <div class="synopsis">
-                    {{ novel.synopsis|linebreaksbr }}
-                </div>
-                 {# More About content can go here #}
+                <div class="synopsis">{{ novel.synopsis|linebreaksbr }}</div>
             </div>
             <div id="toc-tab" class="tab-content">
                 <h3>Chapters</h3>
-                {# Use chapter-list-inline for different styling if needed, else reuse .chapter-list #}
                  {% if chapters %}
                     <ol class="chapter-list chapter-list-inline">
-                        {% for chapter in chapters %}
-                            <li>
-                                <a href="{{ chapter.get_absolute_url }}">
-                                   Chapter {{ chapter.chapter_number }}{% if chapter.title %}: {{ chapter.title }}{% endif %}
-                                </a>
-                            </li>
-                        {% endfor %}
+                         {% for chapter in chapters %}<li><a href="{{ chapter.get_absolute_url }}">Chapter {{ chapter.chapter_number }}{% if chapter.title %}: {{ chapter.title }}{% endif %}</a></li>{% endfor %}
                     </ol>
-                {% else %}
-                    <p>No chapters have been published for this novel yet.</p>
-                {% endif %}
+                 {% else %}<p>No chapters have been published for this novel yet.</p>
+                 {% endif %}
             </div>
         </div> {# End .tab-content-wrapper #}
     </div> {# End .tabs-section #}
+
+
+    {# --- START: NEW Review Section --- #}
+    <section class="reviews-section">
+        <h2>{{ novel.rating_count }} Reviews</h2> {# Dynamic count #}
+        <div class="review-summary">
+             {# Duplicate average display for emphasis #}
+            <div class="summary-average">
+                <span class="avg-score">{{ novel.average_rating|default_if_none:"0.0" }}</span>
+                <div class="stars-display">
+                     {% with avg=novel.average_rating|default_if_none:0.0 avg_floor=avg|stringformat:".0f"|add:"0" avg_diff=avg|floatformat:1|slice:"-1" %}
+                        {% for i in "12345" %}
+                           {% if i|add:"0" <= avg_floor %}<svg><use xlink:href="#icon-star-filled"></use></svg>
+                           {% elif i|add:"0" == avg_floor|add:"1" and avg_diff >= '5' %}<svg><use xlink:href="#icon-star-half"></use></svg>
+                           {% else %}<svg><use xlink:href="#icon-star-empty"></use></svg>
+                           {% endif %}
+                        {% endfor %}
+                     {% endwith %}
+                </div>
+            </div>
+             {# Criteria Breakdown - Placeholders, needs model fields later #}
+             <div class="criteria-list">
+                <div class="criterion-item">
+                     <span class="criterion-label">Writing Quality</span>
+                     <div class="stars-display criterion-stars"> {# Placeholder stars #} <svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-half"></use></svg><svg><use xlink:href="#icon-star-empty"></use></svg> </div>
+                 </div>
+                <div class="criterion-item">
+                    <span class="criterion-label">Stability of Updates</span>
+                    <div class="stars-display criterion-stars"> {# Placeholder stars #} <svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-empty"></use></svg> </div>
+                </div>
+                 <div class="criterion-item">
+                     <span class="criterion-label">Story Development</span>
+                     <div class="stars-display criterion-stars"> {# Placeholder stars #} <svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg> </div>
+                 </div>
+                 <div class="criterion-item">
+                    <span class="criterion-label">Character Design</span>
+                    <div class="stars-display criterion-stars"> {# Placeholder stars #} <svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-empty"></use></svg><svg><use xlink:href="#icon-star-empty"></use></svg> </div>
+                </div>
+                 <div class="criterion-item">
+                    <span class="criterion-label">World Background</span>
+                     <div class="stars-display criterion-stars"> {# Placeholder stars #} <svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-filled"></use></svg><svg><use xlink:href="#icon-star-half"></use></svg> </div>
+                 </div>
+             </div>
+            {# Write Review Button #}
+            <div class="write-review-action">
+                 {% if user.is_authenticated %}
+                    <button type="button" class="btn write-review-btn" data-modal-target="#review-modal">Write a Review</button>
+                 {% else %}
+                    <a href="{% url 'login' %}?next={{ request.path|urlencode }}" class="btn write-review-btn">Login to Review</a>
+                 {% endif %}
+            </div>
+        </div>
+
+        {# Area for displaying existing reviews (List - TODO) #}
+        <div class="existing-reviews">
+             <h4>Reviews</h4>
+            {# Loop through actual reviews later #}
+             <p>(Review list will go here)</p>
+        </div>
+    </section>
+    {# --- END: NEW Review Section --- #}
+
+
+    {# --- START: Review Modal Popup (Hidden by default) --- #}
+    {# Put this outside .main-content if you want full overlay, or inside #}
+    <div class="modal" id="review-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="review-modal-title">
+        <div class="modal-overlay" data-modal-close tabindex="-1"></div> {# Click outside to close #}
+        <div class="modal-content">
+             <button class="modal-close" data-modal-close aria-label="Close Review Modal">×</button>
+             <h2 id="review-modal-title">Write a review</h2>
+             {# Add Placeholder Reading Status? Requires Chapter Tracking #}
+             {# <p class="reading-status">Reading Status: C1</p> #}
+
+             {# This form needs to be updated later with backend fields #}
+             <form method="post" class="review-form" action=""> {# Form POSTs to current page #}
+                 {% csrf_token %}
+                 {# Add hidden field if needed for update detection later #}
+
+                {# Criteria Ratings - Placeholders (Needs proper form fields later) #}
+                 <div class="review-criteria-ratings">
+                    {# Example criterion (Repeat for others) #}
+                    <div class="review-criterion-item">
+                        <label for="id_writing_quality">Writing Quality</label> {# Associate with form field later #}
+                         <div class="star-rating-input"> {# Re-use star input CSS #}
+                             {# Need proper loop over form fields later #}
+                             <input type="radio" name="writing_quality_placeholder" value="5" id="wq-5"><label for="wq-5"><svg><use xlink:href="#icon-star-filled"></use></svg></label>
+                             <input type="radio" name="writing_quality_placeholder" value="4" id="wq-4"><label for="wq-4"><svg><use xlink:href="#icon-star-filled"></use></svg></label>
+                             <input type="radio" name="writing_quality_placeholder" value="3" id="wq-3"><label for="wq-3"><svg><use xlink:href="#icon-star-filled"></use></svg></label>
+                             <input type="radio" name="writing_quality_placeholder" value="2" id="wq-2"><label for="wq-2"><svg><use xlink:href="#icon-star-filled"></use></svg></label>
+                             <input type="radio" name="writing_quality_placeholder" value="1" id="wq-1"><label for="wq-1"><svg><use xlink:href="#icon-star-filled"></use></svg></label>
+                         </div>
+                     </div>
+                    {# --- Repeat similar blocks for other criteria --- #}
+                    {# Stability of Updates #}
+                    {# Story Development #}
+                    {# Character Design #}
+                    {# World Background #}
+
+                     {# Example for total score in popup? Needs JS calculation usually #}
+                    <div class="review-criterion-item total-score-display">
+                        <label>The total score</label>
+                         <div class="stars-display total-stars"> <span id="total-score-val">0.0</span> <svg><use xlink:href="#icon-star-empty"></use></svg><svg><use xlink:href="#icon-star-empty"></use></svg><svg><use xlink:href="#icon-star-empty"></use></svg><svg><use xlink:href="#icon-star-empty"></use></svg><svg><use xlink:href="#icon-star-empty"></use></svg> </div>
+                     </div>
+                 </div>
+
+                 {# Text Review Area (Needs proper form field later) #}
+                 <div class="review-text-area">
+                     <textarea name="review_text_placeholder" rows="5" placeholder="Type your review here. Please write your review as detailed as you can. Your reviews would be very important to the story (at least 140 characters)."></textarea>
+                 </div>
+
+                  {# Form Footer with options/submit #}
+                 <div class="modal-footer review-form-footer">
+                     <div class="review-options">
+                          {# Example placeholder options #}
+                         {# <button type="button" class="icon-btn" aria-label="Attach Image">🖼️</button> #}
+                         {# <button type="button" class="icon-btn" aria-label="Emojis">😊</button> #}
+                         {# <label class="spoiler-toggle"><input type="checkbox" name="spoiler"> Spoiler</label> #}
+                     </div>
+                    <button type="submit" class="btn btn-primary post-review-btn">POST</button>
+                 </div>
+             </form> {# End Review Form #}
+
+        </div> {# End modal-content #}
+    </div> {# End #review-modal #}
+    {# --- END: Review Modal Popup --- #}
 
 </div> {# End .main-content #}
 

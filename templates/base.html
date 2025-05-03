@@ -31,8 +31,10 @@
             <div class="container">
                 {# Far Left: Logo #}
                 <div class="logo">
-                    {# Keep text, or replace with <img> for image logo #}
-                    <a href="{% url 'novels:novel_list' %}">ANP</a>
+                    <a href="{% url 'novels:novel_list' %}" aria-label="Homepage Logo">
+                        <img class="logo-icon" src="{% static 'images/logo.svg' %}" alt="Awesome Novel Portal Logo">
+                         {# === MAKE SURE TO REPLACE 'your_icon_name.svg' with your actual filename === #}
+                    </a>
                 </div>
 
                 {# Center/Left: Main Nav (adjusted position via flex) #}

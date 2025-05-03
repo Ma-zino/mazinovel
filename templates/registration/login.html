@@ -4,6 +4,13 @@
 
 {% block title %}Login{% endblock title %}
 
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock extra_head %}
+
+
+
 {% block content %}
 <div class="login-page-wrapper"> {# Main container for the two columns #}
 
@@ -78,10 +85,3 @@
 </div> {# End login-page-wrapper #}
 {% endblock content %}
 
-{% block extra_head %} {# Add specific styles or hide base elements if needed #}
-<style>
-    /* Optional: Hide default header/footer ONLY on login page if desired */
-    /* .site-header, .site-footer { display: none; } */
-    /* Or give the body a specific class/ID for the login page */
-</style>
-{% endblock extra_head %}

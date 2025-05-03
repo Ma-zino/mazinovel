@@ -3,6 +3,13 @@
 
 {% block title %}Sign Up{% endblock title %}
 
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock extra_head %}
+
+
+
 {% block content %}
 <div class="login-page-wrapper">
 
@@ -85,6 +92,3 @@
 </div>
 {% endblock content %}
 
-{% block extra_head %}
-{# Optional extra head content #}
-{% endblock extra_head %}

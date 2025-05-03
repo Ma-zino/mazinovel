@@ -4,8 +4,9 @@ from django.db import models
 from django.contrib.auth.models import User # To link novels/chapters to authors
 from django.utils.text import slugify # To create URL slugs
 from django.urls import reverse # To generate URLs for models
-
-# Create your models here.
+from django.db.models import F 
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models import Avg
 
 class Novel(models.Model):
     """Represents a single novel."""
@@ -32,6 +33,28 @@ class Novel(models.Model):
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True) # Automatically set when created
     updated_at = models.DateTimeField(auto_now=True)     # Automatically set when saved
+    view_count = models.PositiveIntegerField(default=0, editable=False) # Store view count, start at 0, not user-editable
+    view_count = models.PositiveIntegerField(default=0, editable=False)
+
+    def rating_count(self):
+        """Returns the total number of ratings for this novel."""
+        return self.ratings.count() # Access ratings via related_name
+
+    def average_rating(self):
+        """Calculates and returns the average rating, rounded to 1 decimal place."""
+        avg = self.ratings.aggregate(Avg('rating'))['rating__avg']
+        if avg is None:
+            return 0 # Return 0 if no ratings yet
+        return round(avg, 1)
+        
+    # --- END RATING CALCULATION METHODS ---
+    def formatted_view_count(self):
+       if self.view_count >= 1000000:
+           return f"{self.view_count / 1000000:.1f}M"
+       elif self.view_count >= 1000:
+           return f"{self.view_count / 1000:.1f}K"
+       return str(self.view_count)
+
 
     def __str__(self):
         """String representation of the Novel object."""
@@ -53,6 +76,32 @@ class Novel(models.Model):
         """Returns the URL to access a particular novel instance."""
         # We will define the URL pattern named 'novel_detail' later
         return reverse('novel_detail', kwargs={'slug': self.slug})
+
+class Rating(models.Model):
+    """Represents a single user rating for a novel."""
+    RATING_CHOICES = [
+        (1, '1 - Awful'),
+        (2, '2 - Poor'),
+        (3, '3 - Average'),
+        (4, '4 - Good'),
+        (5, '5 - Excellent'),
+    ]
+
+    novel = models.ForeignKey(Novel, on_delete=models.CASCADE, related_name='ratings')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='novel_ratings')
+    rating = models.PositiveSmallIntegerField(
+        choices=RATING_CHOICES,
+        validators=[MinValueValidator(1), MaxValueValidator(5)] # Ensure value is 1-5
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        # Crucial: Ensure a user can only rate a specific novel once
+        unique_together = ('user', 'novel')
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.user.username}'s {self.rating}-star rating for {self.novel.title}"
 
 
 class Chapter(models.Model):

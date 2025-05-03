@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="150" cy="150" r="145" fill="#f0f4f8" />
+  
+  <!-- Book shape -->
+  <path d="M80,70 L220,70 C230,70 240,80 240,90 L240,220 C240,230 230,240 220,240 L80,240 C70,240 60,230 60,220 L60,90 C60,80 70,70 80,70 Z" fill="#3b82f6" />
+  
+  <!-- Book pages -->
+  <path d="M80,75 L220,75 C225,75 230,80 230,85 L230,220 C230,225 225,230 220,230 L80,230 C75,230 70,225 70,220 L70,85 C70,80 75,75 80,75 Z" fill="white" />
+  
+  <!-- Book spine -->
+  <rect x="70" y="75" width="10" height="155" fill="#1e40af" />
+  
+  <!-- Maze pattern -->
+  <path d="M100,110 L200,110 M100,140 L160,140 M160,140 L160,170 M100,170 L200,170 M200,140 L200,110 M130,110 L130,140 M100,110 L100,200 M200,170 L200,200 M100,200 L200,200" stroke="#3b82f6" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Letter M -->
+  <path d="M110,90 L118,90 L125,100 L132,90 L140,90 L140,105 L134,105 L134,96 L125,108 L116,96 L116,105 L110,105 Z" fill="#1e40af" />
+  
+  <!-- Abstract bookmark -->
+  <path d="M190,75 L220,75 L220,120 L205,105 L190,120 Z" fill="#ef4444" />
+  
+  <!-- Glow effect -->
+  <circle cx="150" cy="150" r="145" fill="url(#glowGradient)" fill-opacity="0.3" />
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0.4" />
+    </linearGradient>
+  </defs>
+</svg>
