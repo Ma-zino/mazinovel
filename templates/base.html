@@ -18,9 +18,15 @@
         <script src="{% static 'novels/js/novel_detail_tabs.js' %}"></script>
     {% endif %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}"> {# Main base styles #}
-    {% block extra_head %}{% endblock extra_head %} {# Placeholder for page styles #}
+    {% block extra_head %}{% endblock extra_head %} 
 
-
+    {% block extra_scripts %}
+        {# Conditionally load review script only on novel detail page #}
+        {% if request.resolver_match.url_name == 'novel_detail' %}
+            <script src="{% static 'novels/js/novel_detail_review.js' %}"></script>
+        {% endif %}
+        {# Add other scripts here #}
+    {% endblock extra_scripts %}
 </head>
 <body>
     <div class="page-container">
@@ -90,6 +96,6 @@
         </footer>
 
     </div> {# End page-container #}
-    {% block extra_scripts %}{% endblock extra_scripts %}
+
 </body>
 </html>
